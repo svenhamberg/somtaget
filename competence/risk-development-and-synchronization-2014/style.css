@@ -140,6 +140,10 @@ p {
 	padding: 0 15px 15px 15px;
 }
 
+#conference-photos img {
+	max-width: 80%;
+}
+
 .speaker {
 	margin-top: 20px;
 	margin-bottom: 40px;
