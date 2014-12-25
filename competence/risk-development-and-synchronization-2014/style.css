@@ -376,6 +376,11 @@ input[type=submit] {
 	box-shadow: 0 1px 2px 0px #000;
 }
 
+.button {
+	margin-left: 10%;
+	margin-right: 10%;
+}
+
 #logos-mobile {
 	display: block;
 	border-top: solid 1px;
