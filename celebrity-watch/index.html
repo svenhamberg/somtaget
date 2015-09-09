@@ -59,8 +59,8 @@
 			<script>
 				function getBrowserWidth() {
 					var browserWidth = window.innerWidth;
-					if (browserWidth > 750) {
-						return 700;
+					if (browserWidth > 1250) {
+						return 1200;
 					} else {
 					return browserWidth-50;
 					}
@@ -68,15 +68,15 @@
 
 				function getBrowserHeight() {
 					var browserHeight = window.innerHeight;
-					if (browserHeight > 500) {
-						return 500;
+					if (browserHeight > 640) {
+						return 640;
 					} else {
 						return browserHeight;
 					}
 				}
 
 				function getMap() {
-					return "<iframe width=\""+getBrowserWidth()+"\" height=\""+getBrowserHeight()+"\" scrolling=\"no\" frameborder=\"no\" src=\"https://www.google.com/fusiontables/embedviz?q=select+col10+from+1Rgb8pI0qlLNlGNHGNY7IFE80-BpBwwQbupGMIbI8&amp;viz=MAP&amp;h=false&amp;lat=44.154648443544644&amp;lng=-46.23101003099362&amp;t=1&amp;z=3&amp;l=col10&amp;y=2&amp;tmplt=2&amp;hml=GEOCODABLE\"></iframe>";
+					return "<iframe width=\""+getBrowserWidth()+"\" height=\""+getBrowserHeight()+"\" scrolling=\"no\" frameborder=\"no\" src=\"https://www.google.com/fusiontables/embedviz?q=select+col10+from+1Rgb8pI0qlLNlGNHGNY7IFE80-BpBwwQbupGMIbI8&amp;viz=MAP&amp;h=false&amp;lat=42&amp;lng=-45&amp;t=1&amp;z=3&amp;l=col10&amp;y=2&amp;tmplt=2&amp;hml=GEOCODABLE\"></iframe>";
 				}
 
 				document.getElementById("map").innerHTML = getMap();
