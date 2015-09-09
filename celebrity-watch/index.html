@@ -1,14 +1,15 @@
 <!doctype html>
 <html>
-	<head>
-		<title>Som Tåget Celebrity Watch</title>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+<head>
+	<title>Som Tåget Celebrity Watch</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+	<link rel="icon" type="image/png" href="../images/favicon.png">
 
-		<link rel="stylesheet" href="../stylesheets/style.css">
-		<link rel="stylesheet" href="style-cw.css">
+	<link rel="stylesheet" href="../stylesheets/style.css">
+	<link rel="stylesheet" href="style-cw.css">
 
-		<!-- Facebook OG tags -->
+	<!-- Facebook OG tags -->
 
 		<!-- <meta property="og:type" content="website" />
 		<meta property="og:title" content="Konferens: Risk Development & Synchronization" />
@@ -23,16 +24,16 @@
 
 	<!-- Google Analytics -->
 
-		<script>
-			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-				(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-				m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-			ga('create', 'UA-56977422-1', 'auto');
-			ga('send', 'pageview');
+		ga('create', 'UA-56977422-1', 'auto');
+		ga('send', 'pageview');
 
-		</script>
+	</script>
 
 
 	<!-- End Google Analytics -->
@@ -44,51 +45,51 @@
 
 	<!-- End Facebook WCA -->
 
-	</head>
-	<body onresize="resizeMap()">
+</head>
+<body onresize="resizeMap()">
 
-		<div id="content">
-			<div id="header">
-				<div id="header-image">
-					<img src="../images/som-taget-logo.png">
-				</div>
-				<div id="header-text">Celebrity Watch</div>
+	<div id="content">
+		<div id="header">
+			<div id="header-image">
+				<img src="../images/som-taget-logo.png">
 			</div>
-			<div id="map"></div>
-
-			<script>
-				function getBrowserWidth() {
-					var browserWidth = window.innerWidth;
-					if (browserWidth > 1250) {
-						return 1200;
-					} else {
-					return browserWidth-50;
-					}
-				}
-
-				function getBrowserHeight() {
-					var browserHeight = window.innerHeight;
-					if (browserHeight > 640) {
-						return 640;
-					} else {
-						return browserHeight;
-					}
-				}
-
-				function getMap() {
-					return "<iframe width=\""+getBrowserWidth()+"\" height=\""+getBrowserHeight()+"\" scrolling=\"no\" frameborder=\"no\" src=\"https://www.google.com/fusiontables/embedviz?q=select+col10+from+1Rgb8pI0qlLNlGNHGNY7IFE80-BpBwwQbupGMIbI8&amp;viz=MAP&amp;h=false&amp;lat=42&amp;lng=-45&amp;t=1&amp;z=3&amp;l=col10&amp;y=2&amp;tmplt=2&amp;hml=GEOCODABLE\"></iframe>";
-				}
-
-				document.getElementById("map").innerHTML = getMap();
-
-				function resizeMap() {
-					document.getElementById("map").innerHTML = getMap();					
-				}
-
-			</script>
-
-
+			<div id="header-text">Celebrity Watch</div>
 		</div>
+		<div id="map"></div>
 
-	</body>
+		<script>
+			function getBrowserWidth() {
+				var browserWidth = window.innerWidth;
+				if (browserWidth > 1250) {
+					return 1200;
+				} else {
+					return browserWidth-50;
+				}
+			}
+
+			function getBrowserHeight() {
+				var browserHeight = window.innerHeight;
+				if (browserHeight > 640) {
+					return 640;
+				} else {
+					return browserHeight;
+				}
+			}
+
+			function getMap() {
+				return "<iframe width=\""+getBrowserWidth()+"\" height=\""+getBrowserHeight()+"\" scrolling=\"no\" frameborder=\"no\" src=\"https://www.google.com/fusiontables/embedviz?q=select+col10+from+1Rgb8pI0qlLNlGNHGNY7IFE80-BpBwwQbupGMIbI8&amp;viz=MAP&amp;h=false&amp;lat=42&amp;lng=-45&amp;t=1&amp;z=3&amp;l=col10&amp;y=2&amp;tmplt=2&amp;hml=GEOCODABLE\"></iframe>";
+			}
+
+			document.getElementById("map").innerHTML = getMap();
+
+			function resizeMap() {
+				document.getElementById("map").innerHTML = getMap();					
+			}
+
+		</script>
+
+
+	</div>
+
+</body>
 </html>
