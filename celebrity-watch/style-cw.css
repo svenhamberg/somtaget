@@ -1,3 +1,7 @@
+body {
+	margin: 0;
+}
+
 #content {
 	max-width: 750px;
 }
@@ -17,4 +21,9 @@
 	font-weight: 700;
 	font-size: .5em;
 	margin-bottom: 50px;
+}
+
+#map {
+	margin-left: 25px;
+	margin-right: 25px;
 }
