@@ -66,8 +66,17 @@
 					}
 				}
 
+				function getBrowserHeight() {
+					var browserHeight = window.innerHeight;
+					if (browserHeight > 500) {
+						return 500;
+					} else {
+						return browserHeight;
+					}
+				}
+
 				function getMap() {
-					return "<iframe width=\""+getBrowserWidth()+"\" height=\"500\" scrolling=\"no\" frameborder=\"no\" src=\"https://www.google.com/fusiontables/embedviz?q=select+col10+from+1Rgb8pI0qlLNlGNHGNY7IFE80-BpBwwQbupGMIbI8&amp;viz=MAP&amp;h=false&amp;lat=44.154648443544644&amp;lng=-46.23101003099362&amp;t=1&amp;z=3&amp;l=col10&amp;y=2&amp;tmplt=2&amp;hml=GEOCODABLE\"></iframe>";
+					return "<iframe width=\""+getBrowserWidth()+"\" height=\""+getBrowserHeight()+"\" scrolling=\"no\" frameborder=\"no\" src=\"https://www.google.com/fusiontables/embedviz?q=select+col10+from+1Rgb8pI0qlLNlGNHGNY7IFE80-BpBwwQbupGMIbI8&amp;viz=MAP&amp;h=false&amp;lat=44.154648443544644&amp;lng=-46.23101003099362&amp;t=1&amp;z=3&amp;l=col10&amp;y=2&amp;tmplt=2&amp;hml=GEOCODABLE\"></iframe>";
 				}
 
 				document.getElementById("map").innerHTML = getMap();
