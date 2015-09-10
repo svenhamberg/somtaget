@@ -2,6 +2,22 @@ body {
 	margin: 0;
 }
 
+a:link {
+    color: inherit;
+}
+
+a:visited {
+    color: inherit;
+}
+
+a:hover {
+    color: inherit;
+}
+
+a:active {
+    color: inherit;
+}
+
 #content {
 	max-width: 100%;
 	/*margin-bottom: 50px;*/
@@ -27,4 +43,22 @@ body {
 #map {
 	margin-left: 25px;
 	margin-right: 25px;
+}
+
+#home-button {
+	position: fixed;
+	left: 10px;
+	bottom: 10px;
+	background: #666666;
+	height: 3rem;
+	width: 6rem;
+	box-shadow: 0px 2px 5px 0px;
+}
+
+#home-text {
+	font-size: .2em;
+	color: #eee;
+	font-family: open sans;
+	top: .5em;
+	position: relative;
 }
