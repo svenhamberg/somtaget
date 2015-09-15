@@ -6,8 +6,8 @@
 	<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
 	<link rel="icon" type="image/png" href="../images/favicon.png">
 
-	<link rel="stylesheet" href="../stylesheets/style.css">
-	<link rel="stylesheet" href="style-cw.css">
+	<link rel="stylesheet" href="/stylesheets/style.css">
+	<link rel="stylesheet" href="/stylesheets/celebrity-watch.css">
 
 	<!-- Facebook OG tags -->
 
@@ -55,40 +55,14 @@
 			</div>
 			<div id="header-text">Celebrity Watch</div>
 		</div>
-		<div id="map"></div>
-
-		<script>
-			function getBrowserWidth() {
-				var browserWidth = window.innerWidth;
-				if (browserWidth > 1250) {
-					return 1200;
-				} else {
-					return browserWidth-50;
-				}
-			}
-
-			function getBrowserHeight() {
-				var browserHeight = window.innerHeight;
-				if (browserHeight > 640) {
-					return 640;
-				} else {
-					return browserHeight;
-				}
-			}
-
-			function getMap() {
-				return "<iframe width=\""+getBrowserWidth()+"\" height=\""+getBrowserHeight()+"\" scrolling=\"no\" frameborder=\"no\" src=\"https://www.google.com/fusiontables/embedviz?q=select+col10+from+1Rgb8pI0qlLNlGNHGNY7IFE80-BpBwwQbupGMIbI8&amp;viz=MAP&amp;h=false&amp;lat=59.33&amp;lng=18.065&amp;t=1&amp;z=14&amp;l=col10&amp;y=2&amp;tmplt=2&amp;hml=GEOCODABLE\"></iframe>";
-			}
-
-			document.getElementById("map").innerHTML = getMap();
-
-			function resizeMap() {
-				document.getElementById("map").innerHTML = getMap();					
-			}
-
-		</script>
-
-
+		
+		<a href="map/">
+			<div class="box-button" id="goto-map-button">
+				<div class="button-text">
+					Go to map
+				</div>
+			</div>
+		</a>
 	</div>
 
 </body>
