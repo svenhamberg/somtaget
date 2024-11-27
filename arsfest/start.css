@@ -79,7 +79,10 @@ header {
     top: 30px;
     left: 50%;
     transform: translateX(-50%);
-    color: rgb(154,54,74);
+    background: linear-gradient(135deg, #ff6f61, #d04ed6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: #d04ed6;
     font-size: 0.65rem;
     text-align: center;
     white-space: nowrap;
