@@ -1,0 +1,35 @@
+:root {
+    --box-shadow-color: rgba(151,206,214,1.0);
+}
+.container {
+    background-image: url('images/information-bg.png');
+}
+.content {
+    background: linear-gradient(to top, rgba(255, 255, 255, 0.8), transparent);
+    box-shadow: var(--box-shadow-offset-x) var(--box-shadow-offset-y) var(--box-shadow-blur) var(--box-shadow-spread) var(--box-shadow-color);
+}
+.info {
+    max-width: 22rem;
+    color: black;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    font-family: 'Poppins';
+}
+.info h3, p {
+    margin: 0;
+}
+.info h3 {
+    font-size: 1.5rem;
+    font-weight: 1000;
+}
+.info p {
+    max-width: 100%;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+#info {
+    color: #FDBC43;
+}

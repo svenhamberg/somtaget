@@ -1,0 +1,89 @@
+:root {
+    --box-shadow-color: rgba(172,132,217, 1.0);
+}
+.container {
+    background-image: url('images/start-bg.png');
+    box-shadow: var(--box-shadow-offset-x) var(--box-shadow-offset-y) var(--box-shadow-blur) var(--box-shadow-spread) var(--box-shadow-color);
+}
+header {
+    font-size: 50px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    text-shadow: 0 0 3px rgba(999, 999, 999, 1.0);
+}
+.hero {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.hero-image {
+    height: 60px;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid white;
+    box-shadow: 0 0 20px 10px rgba(999, 999, 999, 0.7);
+    flex: 1;
+}
+.hero-info {
+    flex: 4;
+    font-size: 2rem;
+    text-shadow: 0 0 10px rgba(999, 999, 999, 0.8);
+    text-align: center;
+    line-height: 1;
+}
+.rsvp-button {
+    background: linear-gradient(135deg, #ff6f61, #d04ed6); /* Gradient background */
+    margin-top: 60px;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+    font-family: 'Rammetto One';
+}
+.rsvp-button:hover {
+    background: linear-gradient(135deg, #d04ed6, #ff6f61);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
+    transform: translateY(-5px);
+}
+.rsvp-button:active {
+    transform: translateY(2px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+.image-row {
+    display: flex;
+    justify-content: space-around;
+    gap: 5px;
+    margin-top: 50px;
+}
+.image-container {
+    position: relative;
+    width: 100px;
+    height: 100px;
+}
+.image-container img {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 0 15px rgba(999,999,999, 0.8));          
+}
+.image-text {
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgb(154,54,74);
+    font-size: 0.65rem;
+    text-align: center;
+    white-space: nowrap;
+    font-family: 'Poppins';
+    font-weight: 1000;
+}
+#start {
+    color: #FDBC43;
+}

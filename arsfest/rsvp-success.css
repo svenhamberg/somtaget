@@ -1,0 +1,40 @@
+:root {
+    --box-shadow-color: rgba(206,183,142,1.0);
+}
+.container {
+    background-image: url('images/rsvp-success-bg.png');
+    box-shadow: var(--box-shadow-offset-x) var(--box-shadow-offset-y) var(--box-shadow-blur) var(--box-shadow-spread) var(--box-shadow-color);
+}
+.content {
+    background: 
+    linear-gradient(to top,
+        rgba(0,0,0, 0.1) 0%,
+        rgba(0,0,0, 0.3) 30%,
+        transparent 100%
+    );
+}
+.rsvp-success {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+}
+.rsvp-success-header {
+    font-size: 30px;
+    text-align: center;
+    line-height: 1.2;
+text-shadow: 0 0 15px rgba(255,255,255, 1.0);
+}
+.rsvp-success-header p {
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+.rsvp-success-img img{
+    height: 300px;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid white;
+    box-shadow: 0 0 40px 15px rgba(255, 255, 255, 0.7);
+}
