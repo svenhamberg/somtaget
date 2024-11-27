@@ -9,7 +9,7 @@
     background-color: rgba(255, 255, 255, 0.35);
 }
 .form-container {
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: rgba(255, 255, 255, 0.4);
     padding: 20px;
     border-radius: 10px;
     max-width: 400px;
@@ -31,41 +31,26 @@ label {
   margin-bottom: 5px;
   font-weight: bold;
 }
+.gradient-border {
+    padding: 1px;
+    background: linear-gradient(135deg, #ff6f61, #d04ed6);
+    border-radius: 5px;
+}
 input[type="text"],
 input[type="email"],
 textarea {
   padding: 10px;
-  border: 1px solid rgb(154,54,74);
-  border-radius: 5px;
+  background-image: white;
+  border-color: white;
+  border-radius: 4px;
   font-size: 16px;
   width: 100%;
   box-sizing: border-box;
 }
-button {
-    background: linear-gradient(135deg, #ff6f61, #d04ed6);
-    margin-top: 20px;
-    align-self: center;
+.rsvp-button {
     width: 80%;
-    color: white;
-    border: none;
-    border-radius: 30px;
-    padding: 15px 0px;
-    font-size: 1.2em;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
-    font-family: 'Rammetto One';
-}
-@media (min-width: 768px) {
-    button:hover {
-        background: linear-gradient(135deg, #d04ed6, #ff6f61);
-        box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
-        transform: translateY(-5px);
-    }
-    button:active {
-        transform: translateY(2px);
-        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
-    }
+    align-self: center;
+    margin-top: 20px;
 }
 #rsvp {
     color: #FDBC43;
