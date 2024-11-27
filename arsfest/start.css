@@ -35,7 +35,7 @@ header {
     line-height: 1;
 }
 .rsvp-button {
-    background: linear-gradient(135deg, #ff6f61, #d04ed6); /* Gradient background */
+    background: linear-gradient(135deg, #ff6f61, #d04ed6);
     margin-top: 60px;
     color: white;
     border: none;
@@ -47,14 +47,16 @@ header {
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
     font-family: 'Rammetto One';
 }
-.rsvp-button:hover {
-    background: linear-gradient(135deg, #d04ed6, #ff6f61);
-    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
-    transform: translateY(-5px);
-}
-.rsvp-button:active {
-    transform: translateY(2px);
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+@media (min-width: 768px) {
+    .rsvp-button:hover {
+        background: linear-gradient(135deg, #d04ed6, #ff6f61);
+        box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
+        transform: translateY(-5px);
+    }
+    .rsvp-button:active {
+        transform: translateY(2px);
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+    }
 }
 .image-row {
     display: flex;

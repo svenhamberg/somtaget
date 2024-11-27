@@ -56,14 +56,16 @@ button {
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
     font-family: 'Rammetto One';
 }
-button:hover {
-    background: linear-gradient(135deg, #d04ed6, #ff6f61);
-    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
-    transform: translateY(-5px);
-}
-button:active {
-    transform: translateY(2px);
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+@media (min-width: 768px) {
+    button:hover {
+        background: linear-gradient(135deg, #d04ed6, #ff6f61);
+        box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
+        transform: translateY(-5px);
+    }
+    button:active {
+        transform: translateY(2px);
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+    }
 }
 #rsvp {
     color: #FDBC43;
