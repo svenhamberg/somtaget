@@ -35,11 +35,49 @@ header {
     text-align: center;
     line-height: 1;
 }
+.callout-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+    margin-top: 40px;
+    align-items: start;
+    justify-content: center;
+}
+.callout {
+    position: relative;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 40px;
+    padding: 15px;
+    text-align: center;
+    font-size: 1rem;
+    font-family: 'Poppins';
+    font-weight: 800;
+    box-shadow: 0 0 20px 10px rgba(255, 255, 255, 0.7);
+    border: 2px solid white;
+}
+#callout-1 {
+    width: 10rem;
+    margin-top: 0;
+    transform: translateX(3%) translateY(30%);
+}
+#callout-2 {
+    width: 12rem;
+    margin-top: 0;
+    transform: translateX(-3%) translateY(-5%);
+}
+#callout-3 {
+    width: 15rem;
+    margin-top: 30px;
+    transform: translateX(10%) translateY(-25%);
+}
 .image-row {
     display: flex;
     justify-content: space-around;
     gap: 5px;
-    margin-top: 50px;
+/*    margin-top: 20px;*/
+    margin-bottom: 30px;
 }
 .image-container {
     position: relative;

@@ -11,7 +11,7 @@
 }
 .form-container {
     background-color: rgba(255, 255, 255, 0.4);
-    padding: 20px;
+    padding: 20px 20px 30px;
     border-radius: 10px;
     max-width: 400px;
     width: 90%;
@@ -47,11 +47,12 @@ textarea {
   font-size: 16px;
   width: 100%;
   box-sizing: border-box;
+  border: 1px solid transparent;
 }
 .rsvp-button {
     width: 80%;
     align-self: center;
-    margin-top: 20px;
+    margin-top: 30px;
 }
 #rsvp {
     color: #FDBC43;

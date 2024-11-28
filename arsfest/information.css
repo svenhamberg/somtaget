@@ -8,9 +8,10 @@
 }
 .content {
     background: linear-gradient(to top, rgba(255, 255, 255, 0.8), transparent);
+    padding-bottom: 20px;
 }
 .info {
-    max-width: 22rem;
+    width: 22rem;
     color: black;
     padding: 15px;
     display: flex;
@@ -27,7 +28,7 @@
     font-weight: 1000;
 }
 .info p {
-    max-width: 100%;
+    width: 100%;
     margin-bottom: 10px;
     font-weight: 600;
 }
