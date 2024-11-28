@@ -6,8 +6,12 @@
 :root {
     --box-shadow-offset-x: 0;
     --box-shadow-offset-y: 0;
-    --box-shadow-blur: 400px;
-    --box-shadow-spread: 200px;
+    --box-shadow-blur: 200px;
+    --box-shadow-spread: 100px;
+    --box-shadow-extra-blur: 300px;
+    --box-shadow-extra-spread: 300px;
+    --box-shadow-color-opacity: 0.4;
+    --box-shadow-color-extra-opacity: 0.3;
     --box-shadow-color: rgba(255, 255, 255, 1);
 }
 body {

@@ -1,9 +1,10 @@
 :root {
-    --box-shadow-color: rgba(232,217,160,1.0);
+    --box-shadow-rgb: 232,217,160;
 }
 .container {
     background-image: url('images/rsvp-bg.png');
-    box-shadow: var(--box-shadow-offset-x) var(--box-shadow-offset-y) var(--box-shadow-blur) var(--box-shadow-spread) var(--box-shadow-color);
+    box-shadow: var(--box-shadow-offset-x) var(--box-shadow-offset-y) var(--box-shadow-blur) var(--box-shadow-spread) rgba(var(--box-shadow-rgb), var(--box-shadow-color-opacity)),
+                var(--box-shadow-offset-x) var(--box-shadow-offset-y) var(--box-shadow-extra-blur) var(--box-shadow-extra-spread) rgba(var(--box-shadow-rgb), var(--box-shadow-color-extra-opacity));
 }
 .content {
     background-color: rgba(255, 255, 255, 0.35);

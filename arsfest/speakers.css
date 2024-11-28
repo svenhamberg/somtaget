@@ -1,12 +1,13 @@
 :root {
-    --box-shadow-color: rgba(221,176,159,1.0);
+    --box-shadow-rgb: 221,176,159;
 }
 .container {
     background-image: url('images/speakers-bg.png');
+    box-shadow: var(--box-shadow-offset-x) var(--box-shadow-offset-y) var(--box-shadow-blur) var(--box-shadow-spread) rgba(var(--box-shadow-rgb), var(--box-shadow-color-opacity)),
+                var(--box-shadow-offset-x) var(--box-shadow-offset-y) var(--box-shadow-extra-blur) var(--box-shadow-extra-spread) rgba(var(--box-shadow-rgb), var(--box-shadow-color-extra-opacity));
 }
 .content {
     background-color: rgba(255, 255, 255, 0.3);
-    box-shadow: var(--box-shadow-offset-x) var(--box-shadow-offset-y) var(--box-shadow-blur) var(--box-shadow-spread) var(--box-shadow-color);
 }
 .inspo-hero {
     text-align: center;
