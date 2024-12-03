@@ -7,10 +7,10 @@
                 var(--box-shadow-offset-x) var(--box-shadow-offset-y) var(--box-shadow-extra-blur) var(--box-shadow-extra-spread) rgba(var(--box-shadow-rgb), var(--box-shadow-color-extra-opacity));
 }
 header {
-    font-size: 50px;
+    font-size: 3rem;
     margin-top: 5px;
     margin-bottom: 10px;
-    text-shadow: 0 0 3px rgba(255, 255, 255, 1.0);
+    text-shadow: 0 0 3px rgba(255, 255, 255, 0.6);
 }
 .hero {
     display: flex;
@@ -26,13 +26,13 @@ header {
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid white;
-    box-shadow: 0 0 20px 10px rgba(255, 255, 255, 0.7);
+    box-shadow: 0 0 20px 10px rgba(255, 255, 255, 0.5);
     flex: 1;
 }
 .hero-info {
     flex: 4;
     font-size: 2rem;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
     text-align: center;
     line-height: 1;
 }
@@ -91,7 +91,7 @@ header {
     filter: drop-shadow(0 0 15px rgba(255,255,255, 0.8));
     transform: translateZ(0); /* Force GPU acceleration to avoid sharp shadow corners*/
 }
-./*image-text {
+/*.image-text {
     position: absolute;
     top: 30px;
     left: 50%;
