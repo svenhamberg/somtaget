@@ -2,7 +2,7 @@
     --box-shadow-color: rgba(206,183,142,1.0);
 }
 .container {
-    background-image: url('images/rsvp-success-bg.png');
+    background-image: url('../images/rsvp-success-bg.png');
     box-shadow: var(--box-shadow-offset-x) var(--box-shadow-offset-y) var(--box-shadow-blur) var(--box-shadow-spread) var(--box-shadow-color);
 }
 .content {

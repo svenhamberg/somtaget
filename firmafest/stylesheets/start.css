@@ -2,12 +2,12 @@
     --box-shadow-rgb: 172, 132, 217;
 }
 .container {
-    background-image: url('images/start-bg.png');
+    background-image: url('../images/start-bg.png');
     box-shadow: var(--box-shadow-offset-x) var(--box-shadow-offset-y) var(--box-shadow-blur) var(--box-shadow-spread) rgba(var(--box-shadow-rgb), var(--box-shadow-color-opacity)),
                 var(--box-shadow-offset-x) var(--box-shadow-offset-y) var(--box-shadow-extra-blur) var(--box-shadow-extra-spread) rgba(var(--box-shadow-rgb), var(--box-shadow-color-extra-opacity));
 }
 header {
-    font-size: 2.4rem;
+    font-size: 3.4rem;
     margin-top: 5px;
     margin-bottom: 10px;
     text-shadow: 0 0 3px rgba(255, 255, 255, 0.6);
