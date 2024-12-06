@@ -20,13 +20,23 @@ body {
 	justify-content: center;
 	align-items: center;
 }
-#logo {
-	margin-top: 20%;
+.logo {
+	font-family: 'Rammetto One', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  height: 50px;
+  margin-top: 20px;
 }
-#logo img {
-	max-width: 80%;
+.logo-text {
+  font-size: 1rem;
+  font-weight: bold;
 }
-
+.logo-image {
+  width: 50px;
+  object-fit: cover;
+}
 #coming-soon {
 	margin: auto;
 	margin-top: 1%;
