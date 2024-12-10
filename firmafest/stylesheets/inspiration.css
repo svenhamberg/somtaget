@@ -42,23 +42,23 @@
 }
 .image {
     height: 100px;
-    display: none;
+    visibility: hidden;
     opacity: 0;
     transform: translateX(0);
     transition: transform 1s ease, opacity 1s ease;
 }
 .image1.visible {
-    display: block;
+    visibility: visible;
     opacity: 1;
     transform: translateX(35%);
 }
 .image2.visible {
-    display: block;
+    visibility: visible;
     opacity: 1;
     transform: translateX(-12%);
 }
 .image3.visible {
-    display: block;
+    visibility: visible;
     opacity: 1;
     transform: translateX(0%);
 }
@@ -67,11 +67,9 @@
 }
 .image2 {
     transform: translateX(100%);
-    margin-top: 100px;
 }
 .image3 {
     transform: translateX(-100%);
-    margin-top: 200px;
 }
 
 /* INSPO TRAIN ENDS HERE */

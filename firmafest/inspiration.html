@@ -57,20 +57,18 @@
                 ];
 
             images.forEach((image, index) => {
-                image.style.display = 'none';
                 image.classList.remove('visible');
             })
 
             images.forEach((image, index) => {
                 setTimeout(() => {
-                    image.style.display = 'block';
                     requestAnimationFrame(() => {
                         image.classList.add('visible');
                     });
                     if (index > 0) {
                         const previousImage = images[index - 1];
 
-                        previousImage.style.display = 'none';
+                        previousImage.classList.remove('visible');
                     }
                 }, index * 1300);
             });
