@@ -7,7 +7,7 @@
     <link rel="icon" href="../images/favicon.png" type="image/png">
     <link rel="apple-touch-icon" href="../images/favicon.png">
     <link rel="stylesheet" href="./stylesheets/styles.css">
-    <link rel="stylesheet" href="./stylesheets/rsvp.css">
+    <link rel="stylesheet" href="./stylesheets/inspiration.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Rammetto+One&display=swap" rel="stylesheet">
@@ -21,20 +21,16 @@
                 <img src="images/logo.png" alt="Som Tåget logo" class="logo-image">
                 <span class="logo-text">TÅGET</span>
             </div>
-            <div class="form-container">
-                <div class="form-header">Personalinformation</div>
-                <form id="myForm" action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSeOmPHHT4sqfWuqFR19bDURpA0roihGTfTV_90TI-b3Pm3ffA/formResponse" method="POST" target="hidden_iframe" onsubmit="submitted=true;">
-                    <label for="name">Namn</label>
-                    <div class="gradient-border"><input type="text" id="name" name="entry.1277874608" required></div><br>
-                    <label for="email">Email</label>
-                    <div class="gradient-border"><input type="email" id="email" name="entry.592047305" required></div><br>
-                    <label for="allergies">Allergier</label>
-                    <div class="gradient-border"><input type="text" id="allergies" name="entry.540381798"></div><br>
-                    <label for="vacation">Semesteranspråk</label>
-                    <div class="gradient-border"><input type="text" id="vacation" name="entry.776624664"></div>
-                    <button type="submit" class="glowy-button">Anmäl mig!</button>
-                </form>
-                <iframe name="hidden_iframe" style="display:none;"></iframe>
+            <div class="inspo-hero">
+                <p>Här kommer vi inom kort presentera spännande föreläsare som kommer ta med dig på en oförglömlig resa.</p>
+            </div>
+            <button class="glowy-button" id="triggerButton">
+                Ok, men inspirera mig!
+            </button>
+            <div class="image-column">
+                <img src="images/1car.png" id="image1" class="image image1" alt="Image 1">
+                <img src="images/2cars.png" id="image2" class="image image2" alt="Image 2">
+                <img src="images/3cars.png" id="image3" class="image image3" alt="Image 3">
             </div>
         </div>
         <footer>
@@ -53,16 +49,32 @@
         </footer>
     </div>
     <script>
-        var submitted = false;
-        document.getElementById("myForm").onsubmit = function () {
-            submitted = true;
-            setTimeout(function() {
-                if (submitted) {
-                    document.getElementById("myForm").reset();
-                    window.location.href = "rsvp-success.html"; 
-                }
-            }, 1000);
-        };
+        document.getElementById('triggerButton').addEventListener('click', () => {
+            const images = [
+                document.getElementById('image1'),
+                document.getElementById('image2'),
+                document.getElementById('image3'),
+                ];
+
+            images.forEach((image, index) => {
+                image.style.display = 'none';
+                image.classList.remove('visible');
+            })
+
+            images.forEach((image, index) => {
+                setTimeout(() => {
+                    image.style.display = 'block';
+                    requestAnimationFrame(() => {
+                        image.classList.add('visible');
+                    });
+                    if (index > 0) {
+                        const previousImage = images[index - 1];
+
+                        previousImage.style.display = 'none';
+                    }
+                }, index * 1300);
+            });
+        });
     </script>
 </body>
 </html>

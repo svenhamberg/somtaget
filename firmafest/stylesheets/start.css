@@ -91,21 +91,6 @@ header {
     filter: drop-shadow(0 0 15px rgba(255,255,255, 0.8));
     transform: translateZ(0); /* Force GPU acceleration to avoid sharp shadow corners*/
 }
-/*.image-text {
-    position: absolute;
-    top: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: linear-gradient(135deg, #ff6f61, #d04ed6);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: #d04ed6;
-    font-size: 0.65rem;
-    text-align: center;
-    white-space: nowrap;
-    font-family: 'Poppins';
-    font-weight: 1000;
-}*/
 #start {
     color: #FDBC43;
 }

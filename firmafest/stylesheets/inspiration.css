@@ -4,7 +4,7 @@
 .container {
     background-image: url('../images/speakers-bg.png');
     box-shadow: var(--box-shadow-offset-x) var(--box-shadow-offset-y) var(--box-shadow-blur) var(--box-shadow-spread) rgba(var(--box-shadow-rgb), var(--box-shadow-color-opacity)),
-                var(--box-shadow-offset-x) var(--box-shadow-offset-y) var(--box-shadow-extra-blur) var(--box-shadow-extra-spread) rgba(var(--box-shadow-rgb), var(--box-shadow-color-extra-opacity));
+    var(--box-shadow-offset-x) var(--box-shadow-offset-y) var(--box-shadow-extra-blur) var(--box-shadow-extra-spread) rgba(var(--box-shadow-rgb), var(--box-shadow-color-extra-opacity));
 }
 .content {
     background-color: rgba(255, 255, 255, 0.3);
@@ -17,7 +17,66 @@
     margin-top: 5px;
     color: black;
 }
-.speakers {
+
+/* INSPO TRAIN STARTS HERE */
+
+.glowy-button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: 400;
+}
+.image-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+@media (min-width: 768px) {
+    .image-column {
+        margin-top: 50px;
+    }
+    .image-column {
+        gap: 30px;
+    }
+}
+.image {
+    height: 100px;
+    display: none;
+    opacity: 0;
+    transform: translateX(0);
+    transition: transform 1s ease, opacity 1s ease;
+}
+.image1.visible {
+    display: block;
+    opacity: 1;
+    transform: translateX(35%);
+}
+.image2.visible {
+    display: block;
+    opacity: 1;
+    transform: translateX(-12%);
+}
+.image3.visible {
+    display: block;
+    opacity: 1;
+    transform: translateX(0%);
+}
+.image1 {
+    transform: translateX(-150%);
+}
+.image2 {
+    transform: translateX(100%);
+    margin-top: 100px;
+}
+.image3 {
+    transform: translateX(-100%);
+    margin-top: 200px;
+}
+
+/* INSPO TRAIN ENDS HERE */
+
+/*.speakers {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -61,7 +120,7 @@
     font-size: 0.9rem;
     font-weight: 500;
     font-family: 'Rammetto One';
-}
+}*/
 #inspo {
     color: #FDBC43;
 }
