@@ -55,6 +55,81 @@ textarea {
     margin-top: 40px;
     margin-bottom: 20px;
 }
+.review-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 80%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+.review {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 180px;
+    background-color: rgb(248,249,250);
+    border-radius: 3px;
+    box-shadow: 0px 1px 1px 1px rgba(0,0,0,0.2);
+    padding: 20px;
+    font-family: Inter, sans-serif;
+    color: black;
+}
+.review-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.review-score {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    gap: 2px;
+}
+.score-square {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    background-color: rgb(220,220,229);
+}
+.score-square-red {
+    background-color: rgb(213,89,68);
+}
+.score-square-red-half {
+    background: linear-gradient(to right, rgb(213,89,68) 50%, rgb(220,220,229) 50%);
+}
+.score-star {
+    width: 20px;
+    height: 20px;
+}
+.review-time {
+    font-size: 0.8rem;
+    color: rgb(149,149,149);
+}
+.review-body {
+    margin-top: 15px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.review-title {
+    font-size: 1.2rem;
+    font-weight: 500;
+    font-variation-settings: "wght" 550;
+}
+.review-comment {
+    font-size: 1rem;
+    margin-top: 10px;
+}
+.review-signature {
+    font-size: 0.8rem;
+    color: rgb(149,149,149);
+    margin-top: auto;
+}
 #rsvp {
     color: #FDBC43;
 }
