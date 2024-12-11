@@ -45,17 +45,17 @@
     visibility: hidden;
     opacity: 0;
     transform: translateX(0);
-    transition: transform 1s ease, opacity 1s ease;
+    transition: transform 3s ease;
 }
 .image1.visible {
     visibility: visible;
     opacity: 1;
-    transform: translateX(35%);
+    transform: translateX(300%);
 }
 .image2.visible {
     visibility: visible;
     opacity: 1;
-    transform: translateX(-12%);
+    transform: translateX(-200%);
 }
 .image3.visible {
     visibility: visible;
@@ -63,13 +63,15 @@
     transform: translateX(0%);
 }
 .image1 {
-    transform: translateX(-150%);
+    transform: translateX(-300%);
 }
 .image2 {
-    transform: translateX(100%);
+    transform: translateX(170%);
+    margin-top: 30%;
 }
 .image3 {
-    transform: translateX(-100%);
+    transform: translateX(-200%);
+    margin-top: -60%;
 }
 
 /* INSPO TRAIN ENDS HERE */
