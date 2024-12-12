@@ -41,7 +41,7 @@
     }
 }
 .image {
-    height: 100px;
+    height: 90px;
     visibility: hidden;
     opacity: 0;
     transform: translateX(0);
