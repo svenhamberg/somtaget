@@ -50,12 +50,12 @@
 .image1.visible {
     visibility: visible;
     opacity: 1;
-    transform: translateX(300%);
+    transform: translateX(-300%);
 }
 .image2.visible {
     visibility: visible;
     opacity: 1;
-    transform: translateX(-200%);
+    transform: translateX(200%);
 }
 .image3.visible {
     visibility: visible;
@@ -63,14 +63,14 @@
     transform: translateX(0%);
 }
 .image1 {
-    transform: translateX(-300%);
+    transform: translateX(300%);
 }
 .image2 {
-    transform: translateX(170%);
+    transform: translateX(-170%);
     margin-top: 30%;
 }
 .image3 {
-    transform: translateX(-200%);
+    transform: translateX(200%);
     margin-top: -60%;
 }
 
