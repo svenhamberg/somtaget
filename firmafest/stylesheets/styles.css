@@ -71,6 +71,7 @@ a {
 .logo-image {
   width: 50px;
   object-fit: cover;
+  transform: translateY(-5px);
 }
 .glowy-button {
     background: linear-gradient(135deg, #ff6f61, #d04ed6);
