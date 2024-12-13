@@ -76,7 +76,7 @@
 
 /* INSPO TRAIN ENDS HERE */
 
-/*.speakers {
+.speakers {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -120,7 +120,7 @@
     font-size: 0.9rem;
     font-weight: 500;
     font-family: 'Rammetto One';
-}*/
+}
 #inspo {
     color: #FDBC43;
 }
