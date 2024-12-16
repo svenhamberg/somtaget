@@ -9,6 +9,9 @@
 .content {
     background-color: rgba(255, 255, 255, 0.35);
 }
+.logo-text {
+    color: white;
+}
 .form-container {
     background-color: rgba(255, 255, 255, 0.4);
     padding: 20px 20px 30px;
@@ -34,7 +37,7 @@ label {
 }
 .gradient-border {
     padding: 1px;
-    background: linear-gradient(135deg, #ff6f61, #d04ed6);
+    background-color: rgb(51,85,90);
     border-radius: 5px;
 }
 input[type="text"],
@@ -49,8 +52,8 @@ textarea {
   box-sizing: border-box;
   border: 1px solid transparent;
 }
-.rsvp-button {
-    width: 80%;
+.somtaget-button {
+    width: 60%;
     align-self: center;
     margin-top: 40px;
     margin-bottom: 20px;

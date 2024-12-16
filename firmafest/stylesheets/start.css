@@ -1,40 +1,44 @@
 :root {
-    --box-shadow-rgb: 172, 132, 217;
+    --box-shadow-rgb: 51,85,90;
 }
 .container {
     background-image: url('../images/start-bg.png');
     box-shadow: var(--box-shadow-offset-x) var(--box-shadow-offset-y) var(--box-shadow-blur) var(--box-shadow-spread) rgba(var(--box-shadow-rgb), var(--box-shadow-color-opacity)),
-                var(--box-shadow-offset-x) var(--box-shadow-offset-y) var(--box-shadow-extra-blur) var(--box-shadow-extra-spread) rgba(var(--box-shadow-rgb), var(--box-shadow-color-extra-opacity));
+    var(--box-shadow-offset-x) var(--box-shadow-offset-y) var(--box-shadow-extra-blur) var(--box-shadow-extra-spread) rgba(var(--box-shadow-rgb), var(--box-shadow-color-extra-opacity));
+}
+.content {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.2));
 }
 header {
-    font-size: 3rem;
+    font-size: 3.3rem;
     margin-top: 5px;
     margin-bottom: 10px;
-    text-shadow: 0 0 3px rgba(255, 255, 255, 0.6);
+    text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+    font-weight: 800;
 }
 .hero {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 8%;
     margin-bottom: 10px;
+    font-weight: 800;
+    text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
 }
 .hero-image {
-    height: 60px;
+    height: 100px;
     aspect-ratio: 1 / 1;
     border-radius: 50%;
     object-fit: cover;
-    border: 2px solid white;
-    box-shadow: 0 0 20px 10px rgba(255, 255, 255, 0.5);
+    border: 1px solid white;
     flex: 1;
 }
 .hero-info {
     flex: 4;
-    font-size: 2rem;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+    line-height: 0.8;
+    color:rgb(51,85,90);
     text-align: center;
-    line-height: 1;
 }
 .callout-container {
     display: flex;
@@ -43,20 +47,21 @@ header {
     gap: 20px;
     width: 100%;
     margin-top: 60px;
+    margin-bottom: 30px;
     align-items: start;
     justify-content: center;
 }
 .callout {
     position: relative;
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.7);
     border-radius: 40px;
     padding: 15px;
     text-align: center;
     font-size: 1rem;
     font-family: 'Poppins';
     font-weight: 800;
-    box-shadow: 0 0 20px 10px rgba(255, 255, 255, 0.7);
     border: 2px solid white;
+    color:rgb(51,85,90)
 }
 #callout-1 {
     width: 10rem;
@@ -72,24 +77,6 @@ header {
     width: 15rem;
     margin-top: 30px;
     transform: translateX(10%) translateY(-25%);
-}
-.image-row {
-    display: flex;
-    justify-content: space-around;
-    gap: 5px;
-    margin-top: 20px;
-    margin-bottom: 30px;
-}
-.image-container {
-    position: relative;
-    width: 100px;
-    height: 100px;
-}
-.image-container img {
-    width: 100px;
-    height: 100px;
-    filter: drop-shadow(0 0 15px rgba(255,255,255, 0.8));
-    transform: translateZ(0); /* Force GPU acceleration to avoid sharp shadow corners*/
 }
 #start {
     color: #FDBC43;

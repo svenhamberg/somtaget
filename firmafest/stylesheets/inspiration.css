@@ -1,30 +1,32 @@
 :root {
-    --box-shadow-rgb: 221,176,159;
+    --box-shadow-rgb: 233,218,189;
 }
 .container {
-    background-image: url('../images/speakers-bg.png');
+    background-image: url('../images/inspiration-bg.png');
     box-shadow: var(--box-shadow-offset-x) var(--box-shadow-offset-y) var(--box-shadow-blur) var(--box-shadow-spread) rgba(var(--box-shadow-rgb), var(--box-shadow-color-opacity)),
     var(--box-shadow-offset-x) var(--box-shadow-offset-y) var(--box-shadow-extra-blur) var(--box-shadow-extra-spread) rgba(var(--box-shadow-rgb), var(--box-shadow-color-extra-opacity));
 }
 .content {
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: rgba(255, 255, 255, 0.55);
+}
+.logo-text {
+  color: white;
 }
 .inspo-hero {
     text-align: center;
     max-width: 90%;
-    font-family: 'Poppins';
-    font-weight: 600;
+    font-weight: 800;
     margin-top: 5px;
-    color: black;
+    text-shadow: 0 0 2px white;
 }
 
 /* INSPO TRAIN STARTS HERE */
 
-.glowy-button {
+.somtaget-button {
     margin-top: 10px;
     padding: 10px 20px;
-    font-size: 1rem;
-    font-weight: 400;
+    font-size: 1.2rem;
+    font-weight: 800;
 }
 .image-column {
     display: flex;
@@ -82,9 +84,8 @@
     justify-content: center;
     align-items: center;
     gap: 10px;
-    font-family: 'Poppins';
     color: black;
-    text-shadow: 0 0 5px rgba(255,255,255, 0.8);
+    text-shadow: 0 0 2px white;
     width: 100%;
     margin-top: 10px;
 }
@@ -101,8 +102,7 @@
     aspect-ratio: 1 / 1;
     border-radius: 50%;
     object-fit: cover;
-    border: 2px solid white;
-    box-shadow: 0 0 20px 10px rgba(255, 255, 255, 0.7);
+    border: 2px solid black;
 }
 .speaker-info {
     text-align: center;

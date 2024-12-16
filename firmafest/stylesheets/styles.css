@@ -12,14 +12,15 @@
     --box-shadow-extra-spread: 300px;
     --box-shadow-color-opacity: 0.4;
     --box-shadow-color-extra-opacity: 0.3;
-    --box-shadow-color: rgba(255, 255, 255, 1);
+    --box-shadow-rgb: rgb(255, 255, 255);
 }
 body {
     margin: 0;
-    font-family: 'Rammetto One', sans-serif;
-    color: white;
+    font-family: 'Poppins', sans-serif;
+    color: black;
     background-color: white;
     padding-bottom: 5vh;
+    font-size: 18px;
 }
 @media (min-width: 768px) {
     .container {
@@ -67,35 +68,24 @@ a {
 .logo-text {
   font-size: 1rem;
   font-weight: bold;
+  font-family: 'Rammetto One', sans-serif;
+  color: rgb(51, 85, 90);
 }
 .logo-image {
   width: 50px;
   object-fit: cover;
   transform: translateY(-5px);
 }
-.glowy-button {
-    background: linear-gradient(135deg, #ff6f61, #d04ed6);
+.somtaget-button {
+    background-color: rgb(51,85,90);
     margin-top: 30px;
-    color: white;
+    color: rgb(247,184,67);
     border: none;
     border-radius: 30px;
     padding: 15px 30px;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     font-weight: bold;
     cursor: pointer;
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
-    font-family: 'Rammetto One';
-}
-@media (min-width: 768px) {
-    .rsvp-button:hover {
-        background: linear-gradient(135deg, #d04ed6, #ff6f61);
-        box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
-        transform: translateY(-5px);
-    }
-    .rsvp-button:active {
-        transform: translateY(2px);
-        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
-    }
 }
 footer {
     bottom: 0;
@@ -110,8 +100,8 @@ footer {
 }
 .nav-item {
     height: 6vh;
-    background-color: rgb(0, 0, 0);
-    font-size: 0.7rem;
+    background-color: rgb(51,85,90);
+    font-size: 0.9rem;
     width: 25%;
     display: flex;
     flex-direction: column;

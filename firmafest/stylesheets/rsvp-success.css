@@ -1,17 +1,13 @@
 :root {
-    --box-shadow-color: rgba(206,183,142,1.0);
+    --box-shadow-rgb: 232,217,160;
 }
 .container {
-    background-image: url('../images/rsvp-success-bg.png');
-    box-shadow: var(--box-shadow-offset-x) var(--box-shadow-offset-y) var(--box-shadow-blur) var(--box-shadow-spread) var(--box-shadow-color);
+    background-image: url('../images/start-bg.png');
+    box-shadow: var(--box-shadow-offset-x) var(--box-shadow-offset-y) var(--box-shadow-blur) var(--box-shadow-spread) rgba(var(--box-shadow-rgb), var(--box-shadow-color-opacity)),
+                var(--box-shadow-offset-x) var(--box-shadow-offset-y) var(--box-shadow-extra-blur) var(--box-shadow-extra-spread) rgba(var(--box-shadow-rgb), var(--box-shadow-color-extra-opacity));
 }
 .content {
-    background: 
-    linear-gradient(to top,
-        rgba(0,0,0, 0.1) 0%,
-        rgba(0,0,0, 0.3) 30%,
-        transparent 100%
-    );
+    background-color: rgba(255, 255, 255, 0.6);
 }
 .rsvp-success {
     display: flex;
@@ -21,10 +17,13 @@
     margin-top: 40px;
 }
 .rsvp-success-header {
-    font-size: 30px;
+    margin-top: 20px;
+    font-size: 2rem;
+    font-weight: 800;
     text-align: center;
     line-height: 1.2;
-text-shadow: 0 0 15px rgba(255,255,255, 1.0);
+    color: rgb(51,85,90);
+    text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
 }
 .rsvp-success-header p {
     margin-top: 10px;
@@ -36,5 +35,5 @@ text-shadow: 0 0 15px rgba(255,255,255, 1.0);
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid white;
-    box-shadow: 0 0 40px 15px rgba(255, 255, 255, 0.7);
+    box-shadow: 0 0 40px 15px rgba(255,255,255, 0.4);
 }
