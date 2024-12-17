@@ -32,7 +32,7 @@ header {
     aspect-ratio: 1 / 1;
     border-radius: 50%;
     object-fit: cover;
-    border: 1px solid white;
+    border: 1px solid rgb(51,85,90);
     flex: 1;
 }
 .hero-info {
