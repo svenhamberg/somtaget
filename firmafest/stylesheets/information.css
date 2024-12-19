@@ -14,7 +14,7 @@
   color: white;
 }
 .info {
-    width: 22rem;
+    max-width: 95%;
     text-shadow: 0 0 2px white;
     padding: 15px;
     display: flex;
