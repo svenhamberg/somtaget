@@ -34,6 +34,9 @@
     margin-bottom: 10px;
     font-weight: 600;
 }
+#rsvp-link {
+    color: rgb(178,49,41);
+}
 #info {
     color: #FDBC43;
 }

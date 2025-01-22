@@ -22,9 +22,6 @@ body {
     padding-bottom: 5vh;
     font-size: 18px;
 }
-a, a:visited {
-    color: rgb(194,30,30);
-}
 @media (min-width: 768px) {
     .container {
         max-width: 480px;
