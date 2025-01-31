@@ -7,7 +7,7 @@
     var(--box-shadow-offset-x) var(--box-shadow-offset-y) var(--box-shadow-extra-blur) var(--box-shadow-extra-spread) rgba(var(--box-shadow-rgb), var(--box-shadow-color-extra-opacity));
 }
 .content {
-    background-color: rgba(255, 255, 255, 0.55);
+    background-color: rgba(255, 255, 255, 0.70);
 }
 .logo-text {
   color: white;
@@ -19,64 +19,6 @@
     margin-top: 5px;
     text-shadow: 0 0 2px white;
 }
-
-/* INSPO TRAIN STARTS HERE */
-
-.somtaget-button {
-    margin-top: 10px;
-    padding: 10px 20px;
-    font-size: 1.2rem;
-    font-weight: 800;
-}
-.image-column {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 20px;
-}
-@media (min-width: 768px) {
-    .image-column {
-        margin-top: 50px;
-    }
-    .image-column {
-        gap: 30px;
-    }
-}
-.image {
-    height: 90px;
-    visibility: hidden;
-    opacity: 0;
-    transform: translateX(0);
-    transition: transform 3s ease;
-}
-.image1.visible {
-    visibility: visible;
-    opacity: 1;
-    transform: translateX(-300%);
-}
-.image2.visible {
-    visibility: visible;
-    opacity: 1;
-    transform: translateX(200%);
-}
-.image3.visible {
-    visibility: visible;
-    opacity: 1;
-    transform: translateX(0%);
-}
-.image1 {
-    transform: translateX(400%);
-}
-.image2 {
-    transform: translateX(-170%);
-    margin-top: 30%;
-}
-.image3 {
-    transform: translateX(200%);
-    margin-top: -60%;
-}
-
-/* INSPO TRAIN ENDS HERE */
 
 .speakers {
     display: flex;
@@ -114,7 +56,8 @@
     margin: 0;
 }
 .speaker-attributes {
-    font-weight: 600;
+    font-size: 0.9rem;
+    font-weight: 800;
 }
 .speaker-topic {
     font-size: 0.9rem;
@@ -124,3 +67,53 @@
 #inspo {
     color: #FDBC43;
 }
+
+/* INSPO TRAIN STARTS HERE */
+
+.somtaget-button {
+    margin-top: 50px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: 800;
+}
+.image-column {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+.image {
+    position: absolute;
+    height: 90px;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateX(0);
+    transition: transform 3s ease;
+}
+.image1.visible {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(-300%);
+}
+.image2.visible {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(200%);
+}
+.image3.visible {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(0%);
+}
+.image1 {
+    transform: translateX(300%);
+}
+.image2 {
+    transform: translateX(-200%);
+}
+.image3 {
+    transform: translateX(200%);
+}
+
+/* INSPO TRAIN ENDS HERE */
