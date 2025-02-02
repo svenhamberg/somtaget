@@ -64,6 +64,14 @@
     font-weight: 500;
     font-family: 'Rammetto One';
 }
+.more-speakers {
+    font-weight: 600;
+    font-size: 1rem;
+    text-align: center;
+    max-width: 70%;
+    margin-top: 30px;
+    font-style: italic;
+}
 #inspo {
     color: #FDBC43;
 }
