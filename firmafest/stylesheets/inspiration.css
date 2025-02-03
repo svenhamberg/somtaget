@@ -36,7 +36,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    max-width: 95%;
+    max-width: 100%;
     min-width: 25%;
 }
 .speaker-image {
@@ -49,13 +49,13 @@
 .speaker-info {
     text-align: center;
     height: 100%;
-    width: 15rem;
+    width: 16rem;
 }
 .speaker-info h3 {
     font-size: 1.6rem;
     margin: 0;
 }
-.speaker-attributes {
+/*.speaker-attributes {
     font-size: 0.9rem;
     font-weight: 800;
 }
@@ -63,12 +63,18 @@
     font-size: 0.9rem;
     font-weight: 500;
     font-family: 'Rammetto One';
+}*/
+.speaker-about {
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1.2;
+    display: block;
 }
 .more-speakers {
     font-weight: 600;
     font-size: 1rem;
     text-align: center;
-    max-width: 70%;
+    max-width: 80%;
     margin-top: 30px;
     font-style: italic;
 }
