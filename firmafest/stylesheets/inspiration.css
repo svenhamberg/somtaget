@@ -7,7 +7,7 @@
     var(--box-shadow-offset-x) var(--box-shadow-offset-y) var(--box-shadow-extra-blur) var(--box-shadow-extra-spread) rgba(var(--box-shadow-rgb), var(--box-shadow-color-extra-opacity));
 }
 .content {
-    background-color: rgba(255, 255, 255, 0.70);
+    background-color: rgba(255, 255, 255, 0.80);
 }
 .logo-text {
   color: white;
@@ -19,65 +19,82 @@
     margin-top: 5px;
     text-shadow: 0 0 2px white;
 }
-
 .speakers {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 20px;
     color: black;
     text-shadow: 0 0 2px white;
     width: 100%;
     margin-top: 10px;
+    margin-bottom: 50px;
 }
 .speaker-card {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
+    align-items: top;
+    gap: 15px;
     max-width: 100%;
     min-width: 25%;
 }
+.img-and-quote {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 8rem;
+}
 .speaker-image {
-    width: 100px;
-    aspect-ratio: 1 / 1;
+    width: 90px;
+    height: 90px;
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid black;
 }
-.speaker-info {
+.speaker-quote {
+    font-size: 0.8rem;
+    font-style: italic;
+    max-width: 110px;
     text-align: center;
+}
+.speaker-info {
     height: 100%;
     width: 16rem;
+.speaker-name {
+    font-size: 1.2 rem;
+    font-weight: 800;
+}
 }
 .speaker-info h3 {
     font-size: 1.6rem;
     margin: 0;
 }
-/*.speaker-attributes {
-    font-size: 0.9rem;
-    font-weight: 800;
+.speaker-attributes {
+    font-size: 0.8rem;
+    font-weight: 600;
 }
 .speaker-topic {
     font-size: 0.9rem;
     font-weight: 500;
     font-family: 'Rammetto One';
-}*/
+}
 .speaker-about {
     font-size: 0.9rem;
-    font-weight: 600;
+    font-weight: 500;
     line-height: 1.2;
     display: block;
 }
-.more-speakers {
+./*more-speakers {
     font-weight: 600;
     font-size: 1rem;
     text-align: center;
     max-width: 80%;
     margin-top: 30px;
     font-style: italic;
-}
+}*/
 #inspo {
     color: #FDBC43;
 }

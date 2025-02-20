@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Som Tåget Firmafest</title>
+    <link rel="preload" href="images/1car.png" as="image">
+    <link rel="preload" href="images/2cars.png" as="image">
+    <link rel="preload" href="images/3cars.png" as="image">
+    <link rel="icon" href="../images/favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="../images/favicon.png">
+    <link rel="stylesheet" href="./stylesheets/styles.css">
+    <link rel="stylesheet" href="./stylesheets/inspiration.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:wght@400;600;800;1000&family=Rammetto+One&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <div class="logo">
+                <span class="logo-text">SOM</span>
+                <img src="images/engine-logo-w.png" alt="Som Tåget logo" class="logo-image">
+                <span class="logo-text">TÅGET</span>
+            </div>
+            <div class="inspo-hero">
+                <p>Häng med när inspirerande fortbildare från när och fjärran tar dig med på en resa du sent ska glömma.</p><p><strong>Du kanske finner dig själv?</strong></p>
+            </div>
+            <div class="speakers">
+                <div class="speaker-card">
+                    <div class="img-and-quote"><img class="speaker-image" src="images/mats-ahlberg.jpeg">
+                        <div class="speaker-quote">Vi ses i "solen"</div></div>
+                    <div class="speaker-info">
+                        <span class="speaker-name">Mats Ahlberg</span><br>
+                        <span class="speaker-attributes">Medelålders | Garant | Friskförklarad</span>
+                        <span class="speaker-about">Mats bor inne men vistas ibland ute. Mats har skapat flera dokument och med sina djuplodande insikter kring grejer har han en given plats på Som Tåget-scenen.</span>
+                    </div>
+                </div>
+                <div class="speaker-card">
+                    <div class="img-and-quote"><img class="speaker-image" src="images/anna-lundgren.png">
+                        <div class="speaker-quote">Ibland måste Du börja om</div></div>
+                    <div class="speaker-info">
+                        <span class="speaker-name">Anna Lundgren</span><br>
+                        <span class="speaker-attributes">Skonsam | Färgseende | Medelålders</span>
+                        <span class="speaker-about">Anna har en silvermedalj från KM i vanlig bandy. Hon tvekar varken kring att ringa eller svara, och är uppskattad världen över för sina ut- och insikter. Anna har tackat nej till samtliga förfrågningar från Som Tåget genom åren.</span>
+                    </div>
+                </div>
+                <div class="speaker-card">
+                    <div class="img-and-quote"><img class="speaker-image" src="images/adrian-torstensson.jpeg">
+                        <div class="speaker-quote">Vad kostar bilen?</div></div>
+                    <div class="speaker-info">
+                        <span class="speaker-name">Adrian Torstensson</span><br>
+                        <span class="speaker-attributes">Härskarteknik | Medelålders | Barnfar</span>
+                        <span class="speaker-about">Adrian har aldrig förstått vilken slipsten som åsyftas och varför den ska dras, men det hindrar honom inte från att delge sin syn på verksamhet. Hans stora passion är livet, och vi är glada att han nu ska dela den med oss på Som Tåget.</span>
+                    </div>
+                </div>
+                <div class="speaker-card">
+                    <div class="img-and-quote"><img class="speaker-image" src="images/marcus-palmqvist.JPG">
+                        <div class="speaker-quote">Räkna med bråk</div></div>
+                    <div class="speaker-info">
+                        <span class="speaker-name">Marcus Palmqvist</span><br>
+                        <span class="speaker-attributes">Medelålders</span>
+                        <span class="speaker-about">Marcus har körkort och eget boende. Marcus bor i Sundsvall(?)</span>
+                    </div>
+                </div>
+            </div>
+            <!-- <button class="somtaget-button" id="triggerButton">
+                Inspirera mig mer!
+            </button>
+            <div class="image-column">
+                <img src="images/1car.png" id="image1" class="image image1" alt="Image 1">
+                <img src="images/2cars.png" id="image2" class="image image2" alt="Image 2">
+                <img src="images/3cars.png" id="image3" class="image image3" alt="Image 3">
+            </div> -->
+        </div>
+        <footer>
+            <a href="index.html" class="nav-item" id="start">
+                <span>START</span>
+            </a>  
+            <a href="inspiration.html" class="nav-item" id="inspo">
+                <span>INSPO</span>
+            </a>
+            <a href="information.html" class="nav-item" id="info">
+                <span>INFO</span>
+            </a>
+            <a href="rsvp.html" class="nav-item" id="rsvp">
+                <span>ANMÄLAN</span>
+            </a>
+        </footer>
+    </div>
+    <!-- <script>
+        document.getElementById('triggerButton').addEventListener('click', () => {
+            const images = [
+                document.getElementById('image1'),
+                document.getElementById('image2'),
+                document.getElementById('image3'),
+                ];
+
+            images.forEach((image, index) => {
+                image.classList.remove('visible');
+            })
+
+            images.forEach((image, index) => {
+                setTimeout(() => {
+                    requestAnimationFrame(() => {
+                        image.classList.add('visible');
+                    });
+                    if (index > 0) {
+                        const previousImage = images[index - 1];
+
+                        previousImage.classList.remove('visible');
+                    }
+                }, index * 1800);
+            });
+        });
+    </script> -->
+</body>
+</html>
