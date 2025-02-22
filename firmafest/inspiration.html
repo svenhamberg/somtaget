@@ -24,54 +24,48 @@
                 <span class="logo-text">TÅGET</span>
             </div>
             <div class="inspo-hero">
-                <p>Häng med när inspirerande föreläsare från när och fjärran tar dig med på en resa du sent ska glömma.</p><p><strong>Du kanske finner dig själv?</strong></p>
+                <p>Häng med när inspirerande fortbildare från när och fjärran tar dig med på en resa du sent ska glömma.</p><p><strong>Du kanske finner dig själv?</strong></p>
             </div>
             <div class="speakers">
                 <div class="speaker-card">
-                    <img class="speaker-image" src="images/mats-ahlberg.jpeg">
+                    <div class="img-and-quote"><img class="speaker-image" src="images/mats-ahlberg.jpeg">
+                        <div class="speaker-quote">Vi ses i "solen"</div></div>
                     <div class="speaker-info">
-                        <h3>Mats Ahlberg</h3>
-                        <span class="speaker-about">Ibland tar Mats på sig lämplig utrustning och simmar till jobbet.</span>
-                        <!-- <span class="
-                        speaker-attributes">Fantasi | Framgång | Fallfrukt</span><br>
-                        <span class="speaker-topic">"Ett liv på sjön"</span> -->
-                    </div>
-                </div>
-                <!-- <div class="speaker-card">
-                    <img class="speaker-image" src="images/anna-lundgren.png">
-                    <div class="speaker-info">
-                        <h3>Anna Lundgren</h3>
-                        <span class="speaker-attributes">Ledarskap | Manskap | Boskap</span><br>
-                        <span class="speaker-topic">"Ändå skillnad på olika"</span>
-                    </div>
-                </div> -->
-                <!-- <div class="speaker-card">
-                    <img class="speaker-image" src="images/carl-durlow.png">
-                    <div class="speaker-info">
-                        <h3>Carl Durlow</h3>
-                        <span class="speaker-attributes">Här | Där | Everywhere</span><br>
-                        <span class="speaker-topic">"Mina sanningar"</span>
+                        <span class="speaker-name">Mats Ahlberg</span><br>
+                        <span class="speaker-attributes">Medelålders | Garant | Friskförklarad</span>
+                        <span class="speaker-about">Mats bor inne men vistas ibland ute. Han har skapat flera dokument och med sina djuplodande insikter kring grejer har han en given plats på Som Tåget-scenen.</span>
                     </div>
                 </div>
                 <div class="speaker-card">
-                    <img class="speaker-image" src="images/katie-uvenbeck.png">
+                    <div class="img-and-quote"><img class="speaker-image" src="images/anna-lundgren.png">
+                        <div class="speaker-quote">Ibland måste Du börja om</div></div>
                     <div class="speaker-info">
-                        <h3>Katie Uvenbeck</h3>
-                        <span class="speaker-attributes">Jobb | Körkort | Lägenhet</span><br>
-                        <span class="speaker-topic">"Ett liv på sjön"</span>
+                        <span class="speaker-name">Anna Lundgren</span><br>
+                        <span class="speaker-attributes">Skonsam | Färgseende | Medelålders</span>
+                        <span class="speaker-about">Anna har en silvermedalj från KM i vanlig bandy. Hon tvekar varken kring att ringa eller svara, och är uppskattad världen över för sina ut- och insikter. Anna har tackat nej till samtliga förfrågningar från Som Tåget genom åren.</span>
+                    </div>
+                </div>
+                <!-- <div class="speaker-card">
+                    <div class="img-and-quote"><img class="speaker-image" src="images/adrian-torstensson.jpeg">
+                        <div class="speaker-quote">Vad kostar bilen?</div></div>
+                    <div class="speaker-info">
+                        <span class="speaker-name">Adrian Torstensson</span><br>
+                        <span class="speaker-attributes">Härskarteknik | Medelålders | Berör</span>
+                        <span class="speaker-about">Adrian har aldrig förstått vilken slipsten som åsyftas och varför den ska dras, men det hindrar honom inte från att delge sin syn på verksamhet. Hans stora passion är livet, och vi är glada att han nu ska dela den med oss på Som Tåget.</span>
+                    </div>
+                </div>
+                <div class="speaker-card">
+                    <div class="img-and-quote"><img class="speaker-image" src="images/marcus-palmqvist.JPG">
+                        <div class="speaker-quote">Räkna med bråk</div></div>
+                    <div class="speaker-info">
+                        <span class="speaker-name">Marcus Palmqvist</span><br>
+                        <span class="speaker-attributes">Medelålders</span>
+                        <span class="speaker-about">Marcus har körkort och eget boende i Medelpad.</span>
                     </div>
                 </div> -->
                 <div class="more-speakers">
-                    Fler inspiratörer/fortbildare inom kort.
+                    Ytterligare fortbildare presenteras inom kort.
                 </div>
-            </div>
-            <button class="somtaget-button" id="triggerButton">
-                Inspirera mig mer!
-            </button>
-            <div class="image-column">
-                <img src="images/1car.png" id="image1" class="image image1" alt="Image 1">
-                <img src="images/2cars.png" id="image2" class="image image2" alt="Image 2">
-                <img src="images/3cars.png" id="image3" class="image image3" alt="Image 3">
             </div>
         </div>
         <footer>
@@ -89,31 +83,5 @@
             </a>
         </footer>
     </div>
-    <script>
-        document.getElementById('triggerButton').addEventListener('click', () => {
-            const images = [
-                document.getElementById('image1'),
-                document.getElementById('image2'),
-                document.getElementById('image3'),
-                ];
-
-            images.forEach((image, index) => {
-                image.classList.remove('visible');
-            })
-
-            images.forEach((image, index) => {
-                setTimeout(() => {
-                    requestAnimationFrame(() => {
-                        image.classList.add('visible');
-                    });
-                    if (index > 0) {
-                        const previousImage = images[index - 1];
-
-                        previousImage.classList.remove('visible');
-                    }
-                }, index * 1800);
-            });
-        });
-    </script>
 </body>
 </html>

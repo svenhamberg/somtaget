@@ -1,0 +1,45 @@
+.somtaget-button {
+    margin-top: 50px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: 800;
+}
+.image-column {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+.image {
+    position: absolute;
+    height: 90px;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateX(0);
+    transition: transform 3s ease;
+}
+.image1.visible {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(-300%);
+}
+.image2.visible {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(200%);
+}
+.image3.visible {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(0%);
+}
+.image1 {
+    transform: translateX(300%);
+}
+.image2 {
+    transform: translateX(-200%);
+}
+.image3 {
+    transform: translateX(200%);
+}
