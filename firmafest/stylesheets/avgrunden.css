@@ -1,0 +1,102 @@
+:root {
+    --box-shadow-rgb: 224,217,207;
+}
+.container {
+    background-image: url('../images/avgrunden-bg.png');
+    box-shadow: var(--box-shadow-offset-x) var(--box-shadow-offset-y) var(--box-shadow-blur) var(--box-shadow-spread) rgba(var(--box-shadow-rgb), var(--box-shadow-color-opacity)),
+                var(--box-shadow-offset-x) var(--box-shadow-offset-y) var(--box-shadow-extra-blur) var(--box-shadow-extra-spread) rgba(var(--box-shadow-rgb), var(--box-shadow-color-extra-opacity));
+}
+.content {
+    background-color: rgba(255, 255, 255, 0.6);
+}
+.logo-text {
+    color: white;
+}
+.form-container {
+/*    background-color: rgba(255, 255, 255, 0.4);*/
+    padding: 20px 20px 30px;
+    border-radius: 10px;
+    max-width: 400px;
+    width: 90%;
+    margin-top: 10px;
+    color: black;
+    font-family: 'Poppins';
+}
+form {
+  display: flex;
+  flex-direction: column;
+}
+.form-header {
+    font-family: 'Rammetto One';
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+    font-weight: bold;
+    text-align: center;
+}
+.form-subheader {
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-style: italic;
+    text-align: center;
+    margin-bottom: 20px;
+}
+/*.gradient-border {
+    padding: 1px;
+    background-color: rgb(51,85,90);
+    border-radius: 5px;
+}*/
+textarea {
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 4px;
+  font-size: 1.3rem;
+  font-family: Poppins;
+  width: 100%;
+  height: 200px;
+  box-sizing: border-box;
+  border: 1px solid;
+  border-color: rgb(139, 118, 98);
+}
+textarea::placeholder {
+    color: rgb(90, 90, 90);
+    font-style: italic;
+}
+.avgrunden-button {
+    background-color: rgb(255,255,255);
+    box-shadow: 0 2px 0 2px rgb(139, 118, 98);
+    border: none;
+    border-radius: 30px;
+    padding: 15px 30px;
+    cursor: pointer;    
+    width: 100%;
+    align-self: center;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: rgb(1,1,1);
+}
+.rsvp-success {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+}
+.rsvp-success-header {
+    font-size: 30px;
+    text-align: center;
+    line-height: 1.2;
+}
+.rsvp-success-header p {
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+.rsvp-success-img img{
+    height: 300px;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid white;
+    box-shadow: 0 0 20px 10px rgba(255, 255, 255, 0.7);
+}

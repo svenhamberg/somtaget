@@ -1,0 +1,24 @@
+:root {
+    --box-shadow-rgb: 224,217,207;
+}
+.container {
+    background-image: url('../images/avgrunden-success-bg.png');
+    box-shadow: var(--box-shadow-offset-x) var(--box-shadow-offset-y) var(--box-shadow-blur) var(--box-shadow-spread) rgba(var(--box-shadow-rgb), var(--box-shadow-color-opacity)),
+                var(--box-shadow-offset-x) var(--box-shadow-offset-y) var(--box-shadow-extra-blur) var(--box-shadow-extra-spread) rgba(var(--box-shadow-rgb), var(--box-shadow-color-extra-opacity));
+}
+.content {
+    background-color: rgba(255, 255, 255, 0.6);
+}
+.rsvp-success {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+}
+h1 {
+    font-family: 'Rammetto One';
+    font-size: 7rem;
+    color: rgb(50, 160, 75);
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}

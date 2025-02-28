@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Som Tåget Firmafest</title>
+    <link rel="icon" href="../images/favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="../images/favicon.png">
+    <link rel="stylesheet" href="./stylesheets/styles.css">
+    <link rel="stylesheet" href="./stylesheets/avgrunden.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:wght@400;600;800;1000&family=Rammetto+One&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <div class="logo">
+                <span class="logo-text">SOM</span>
+                <img src="images/engine-logo-w.png" alt="Som Tåget logo" class="logo-image">
+                <span class="logo-text">TÅGET</span>
+            </div>
+            <div class="form-container">
+                <div class="form-header">AVGRUNDEN</div>
+                <div class="form-subheader">Din åsikt räknas!</div>
+                <form id="myForm" action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSeOmPHHT4sqfWuqFR19bDURpA0roihGTfTV_90TI-b3Pm3ffA/formResponse" method="POST" target="hidden_iframe" onsubmit="submitted=true;">
+                    <textarea placeholder="Alltså jag tycker att..." required></textarea>
+                    <button type="submit" class="avgrunden-button">Dela med arbetsgivaren!</button>
+                </form>
+                <iframe name="hidden_iframe" style="display:none;"></iframe>
+            </div>
+        </div>
+    </div>
+    <script>
+        var submitted = false;
+        document.getElementById("myForm").onsubmit = function () {
+            submitted = true;
+            setTimeout(function() {
+                if (submitted) {
+                    document.getElementById("myForm").reset();
+                    window.location.href = "avgrunden-success.html"; 
+                }
+            }, 1000);
+        };
+    </script>
+</body>
+</html>
