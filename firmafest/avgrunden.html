@@ -23,7 +23,7 @@
             <div class="form-container">
                 <div class="form-header">AVGRUNDEN</div>
                 <div class="form-subheader">Din åsikt räknas!</div>
-                <form id="myForm" action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSeOmPHHT4sqfWuqFR19bDURpA0roihGTfTV_90TI-b3Pm3ffA/formResponse" method="POST" target="hidden_iframe" onsubmit="submitted=true;">
+                <form id="myForm" method="POST" target="hidden_iframe" onsubmit="submitted=true;">
                     <textarea placeholder="Alltså jag tycker att..." required></textarea>
                     <button type="submit" class="avgrunden-button">Dela med arbetsgivaren!</button>
                 </form>
@@ -37,7 +37,6 @@
             submitted = true;
             setTimeout(function() {
                 if (submitted) {
-                    document.getElementById("myForm").reset();
                     window.location.href = "avgrunden-success.html"; 
                 }
             }, 1000);
