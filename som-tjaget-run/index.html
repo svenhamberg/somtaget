@@ -435,6 +435,7 @@
   const CONFIG = {
     csvUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSjpI8qiPxM9CFpazKbHFIbjJA9S-re_PrlwMwdo7wFArAVgshedPHL63WYEY-RPd_nceB_9d-so93C/pub?gid=610468794&single=true&output=csv",            // <-- publicerad CSV-URL
     refreshMs: 30000,      // uppdateringsintervall (ms)
+    fetchTimeoutMs: 12000, // avbryt en hängande hämtning så knappen hamnar i "Försök igen" istället för att snurra för evigt
     target: 20,            // "ett tjåg"
     updatedMarker: "LAST_UPDATED=",   // cell-prefix som Apps Script skriver i arket (LAST_UPDATED=<ISO-tid>) → "senast uppdaterad"
 
@@ -594,7 +595,13 @@
     if(!CONFIG.csvUrl){ return {players:DEMO.slice(), demo:true, updatedAt:null}; }
     const sep = CONFIG.csvUrl.includes("?") ? "&" : "?";
     const url = CONFIG.csvUrl + sep + "cb=" + Date.now();
-    const res = await fetch(url,{cache:"no-store"});
+    // Timeout: en stillastående hämtning (flaky mobilnät) får aldrig hänga sig – abortera
+    // efter fetchTimeoutMs så fetch() kastar och knappen faller ner i "Försök igen"-läget.
+    const ctrl = new AbortController();
+    const timer = setTimeout(()=>ctrl.abort(), CONFIG.fetchTimeoutMs||12000);
+    let res;
+    try{ res = await fetch(url,{cache:"no-store",signal:ctrl.signal}); }
+    finally{ clearTimeout(timer); }
     if(!res.ok) throw new Error("HTTP "+res.status);
     const rows = parseCSV(await res.text());
     if(rows.length<2) throw new Error("Arket verkar tomt");
