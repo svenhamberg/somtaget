@@ -87,7 +87,7 @@
       font-size:clamp(1.7rem,7.2vw,2.5rem);
       line-height:1.05;
       letter-spacing:.5px;
-      margin:0;
+      margin:0;padding-top:.3em;                        /* luft över texten så Å-ringen inte klipps av background-clip:text */
       max-width:100%;overflow-wrap:break-word;        /* får radbrytas, sticker aldrig ut */
       background:linear-gradient(180deg,#FCE08A 0%,#F4B22A 48%,#D7951A 100%);
       -webkit-background-clip:text;background-clip:text;
@@ -481,6 +481,7 @@
   let lastDemo = false;
   let lastUpdated = null;        // tidsstämpel från arkets LAST_UPDATED-cell (null = okänd)
   let revealed = false;
+  let buildGen = 0;             // räknare: varje render() ogiltigförklarar ett pågående bygg-animations-bygge
 
   // ---------- helpers ----------
   function fmt(n){
@@ -641,6 +642,7 @@
   }
 
   function render(players, animate){
+    const myGen=++buildGen;     // ogiltigförklara ev. pågående bygge (t.ex. ett som frusit i bakgrundsflik)
     // score = avstånd till tjåget; minst vinner
     const ranked = players
       .map(p=>({...p, score:Math.abs(CONFIG.target-p.points), awaySpeed:p.awaySpeed||0}))
@@ -749,6 +751,7 @@
         movers.forEach((el,i)=>{ if(after[i]==null) return; el.style.transition="none"; el.style.transform="translateY("+(before[i]-after[i])+"px)"; });
         void $board.offsetHeight;                              // tvinga reflow
         requestAnimationFrame(()=>{
+          if(myGen!==buildGen) return;                         // bygget avbrutet medan rAF låg och väntade (bakgrundsflik)
           movers.forEach((el,i)=>{ if(after[i]==null) return; el.style.transition="transform .45s cubic-bezier(.22,1,.36,1)"; el.style.transform=""; });
           if(onFrame) onFrame();
         });
@@ -766,6 +769,7 @@
 
       // efter varje kort: dramatisk paus + skelett precis innan första ledaren kröns
       const scheduleNext=(curIsLeader)=>{
+        if(myGen!==buildGen) return;          // avbrutet → schemalägg inget mer (inget skelett, inga fler kort)
         const next=queue[qi];
         const dramatic = next && next.li.classList.contains("leader") && !curIsLeader;
         if(dramatic){ showSkeleton(); setTimeout(runNext, LEADER_PAUSE_MS); }
@@ -773,6 +777,7 @@
       };
 
       function runNext(){
+        if(myGen!==buildGen) return;          // en nyare render() har tagit över → avbryt detta bygge
         if(qi>=queue.length){ if(skeleton){ skeleton.remove(); skeleton=null; } return; }
         const b=queue[qi++];
         const isLeader=b.li.classList.contains("leader");
