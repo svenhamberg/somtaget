@@ -607,10 +607,10 @@
   }
 
   // ---------- render ----------
-  const COUNT_MS=800;     // hur länge varje spelares siffra + lok-inkörning tar
-  const LEADER_COUNT_MS=1700; // ledaren får en långsammare, mer dramatisk inkörning + uppräkning
-  const GAP_MS=100;        // liten paus mellan spelare i den sekventiella kön
-  const LEADER_PAUSE_MS=900; // dramatisk paus (med pulserande skelett) precis innan ledaren/ledarna kröns
+  const COUNT_MS=1200;     // hur länge varje spelares siffra + lok-inkörning tar
+  const LEADER_COUNT_MS=2200; // ledaren får en långsammare, mer dramatisk inkörning + uppräkning
+  const GAP_MS=300;        // liten paus mellan spelare i den sekventiella kön
+  const LEADER_PAUSE_MS=2200; // dramatisk paus (med pulserande skelett) precis innan ledaren/ledarna kröns
   const reducedMotion = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
   const medalClass = r => r===1?"gold":r===2?"silver":r===3?"bronze":"";
   // filnamn för avatar: gemener, utan diakritik/specialtecken (Björn -> bjorn)
