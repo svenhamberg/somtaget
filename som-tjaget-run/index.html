@@ -26,6 +26,7 @@
       --ink-2:#241d16;
       --cream:#F4EFE4;
       --card:#FFFFFF;
+      --summary:#ddd4bf;
       --gold:#F4B22A;
       --gold-deep:#D7951A;
       --red:#B23129;
@@ -323,7 +324,7 @@
     /* ---------- Rules ---------- */
     .rules{
       margin-top:26px;
-      background:var(--card);
+      background:var(--summary);
       border:1px solid var(--line);
       border-radius:16px;
       overflow:hidden;
@@ -352,15 +353,11 @@
     /* ---------- Footer ---------- */
     footer{
       margin-top:auto;padding-top:30px;text-align:center;
+    }
+    .fine{
+      font-size:.72rem;
       color:var(--muted);
     }
-    .creed{
-      font-family:'Rammetto One',sans-serif;
-      color:var(--ink);
-      font-size:clamp(1rem,4.5vw,1.3rem);
-      margin:0 0 6px;
-    }
-    .fine{font-size:.72rem;}
 
     @media (min-width:560px){
       .hero{padding-top:34px;padding-bottom:36px;}
@@ -400,28 +397,27 @@
 
     <ol class="board" id="board" aria-live="polite"></ol>
 
-    <details class="rules">
-      <summary>Hur funkar det?</summary>
-      <div class="rules-body">
-        <p>Reglerna är tydliga och alla förstår: närmast ett tjåg poäng vinner.</p>
-        <h3>Detaljer</h3>
-        <ul>
-          <li>Som Tjåget Run-poäng räknas efter varje avslutad match.</li>
-          <li>Som Tjåget Run-score = <code>ABS(20 − poäng)</code>. En behöver alltså inte passera 20. <strong>19,9 är bättre än 20,2.</strong></li>
-          <li>Vid flera spelare lika nära vinner den som var snabbast bort från tjåg.</li>
-          <li>Poäng på specialtips (Goldy boot, Winny team, semifinalist) räknas och läggs till sist.</li>
-        </ul>
-        <h3>Priser</h3>
-        <p>Fina priser.</p>
-        <h3>Exponering</h3>
-        <p>Som Tåget exponeras genom tävlingen.</p>
-        <h3>Minnesregel</h3>
-        <p>«Jag kåm, Jag tjåg, Jag dråg»</p>
-      </div>
-    </details>
-
     <footer>
-      <p class="creed">Jag kåm, Jag tjåg, Jag dråg</p>
+      <details class="rules">
+        <summary>Hur funkar det?</summary>
+        <div class="rules-body">
+          <p>Reglerna är tydliga och alla förstår: närmast ett tjåg poäng vinner.</p>
+          <h3>Detaljer</h3>
+          <ul>
+            <li>Som Tjåget Run-poäng räknas efter varje avslutad match.</li>
+            <li>Som Tjåget Run-score = <code>ABS(20 − poäng)</code>. En behöver alltså inte passera 20. <strong>19,9 är bättre än 20,2.</strong></li>
+            <li>Vid flera spelare lika nära vinner den som var snabbast bort från tjåg.</li>
+            <li>Poäng på specialtips (Goldy boot, Winny team, semifinalist) räknas och läggs till sist.</li>
+          </ul>
+          <h3>Priser</h3>
+          <p>Fina priser.</p>
+          <h3>Exponering</h3>
+          <p>Som Tåget exponeras genom tävlingen.</p>
+          <h3>Minnesregel</h3>
+          <p>«Jag kåm, Jag tjåg, Jag dråg»</p>
+        </div>
+      </details>
+
       <p class="fine">&copy; <span id="year">2026</span> Som Tåget SA &middot; Som Tjåget Run<br>Med ensamrätt.</p>
     </footer>
   </main>
@@ -867,7 +863,7 @@
     $startBtn.classList.toggle("ready", mode==="ready");
     $startSpinner.style.display = (mode==="loading") ? "" : "none";
     if(mode==="loading"){ $startLabel.textContent="Laddar Som Tjåget Run…"; $gateHint.style.display="none"; }
-    else if(mode==="ready"){ $startLabel.textContent="Som Tjåget Run Leaderboard"; $gateHint.style.display="none"; }
+    else if(mode==="ready"){ $startLabel.textContent="Visa Leaderboarden!"; $gateHint.style.display="none"; }
     else { $startLabel.textContent="Försök igen"; $gateHint.textContent="Kunde inte hämta ställningen."; $gateHint.style.display=""; }
   }
 
