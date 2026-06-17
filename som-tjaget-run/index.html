@@ -34,7 +34,7 @@
       --rail:#c9b78f;
     }
     *,*::before,*::after{box-sizing:border-box;}
-    html,body{margin:0;}
+    html,body{margin:0;overflow-x:hidden;}
     body{
       font-family:'Poppins',helvetica,arial,sans-serif;
       color:var(--ink);
@@ -44,16 +44,17 @@
         linear-gradient(180deg, #f6f0e2 0%, #efe6d3 55%, #e9dec8 100%);
       background-attachment:fixed;
       min-height:100vh;
+      display:flex;flex-direction:column;
       -webkit-font-smoothing:antialiased;
       text-rendering:optimizeLegibility;
     }
-    .wrap{max-width:600px;margin:0 auto;padding:0 16px 48px;}
+    .wrap{width:100%;max-width:600px;margin:0 auto;padding:0 16px 48px;flex:1 1 auto;display:flex;flex-direction:column;}
 
     /* ---------- Hero ---------- */
     .hero{
       background:radial-gradient(120% 140% at 50% -10%, var(--ink-2), var(--ink));
       color:var(--cream);
-      margin:0 -16px 22px;
+      margin:0 0 22px;
       padding:26px 16px 30px;
       text-align:center;
       border-bottom:4px solid var(--gold);
@@ -62,7 +63,12 @@
     .brand{
       display:flex;align-items:center;justify-content:center;gap:9px;
       font-family:'Rammetto One',sans-serif;
-      margin:2px 0 12px;
+      margin:2px 0 4px;
+    }
+    .presents{
+      margin:0 0 6px;
+      font-size:.8rem;letter-spacing:2.5px;text-transform:uppercase;font-weight:700;
+      color:var(--gold);
     }
     .brand-text{
       color:var(--cream);
@@ -77,10 +83,11 @@
     h1{
       font-family:'Rammetto One',sans-serif;
       font-weight:400;
-      font-size:clamp(1.8rem,8.4vw,2.9rem);
+      font-size:clamp(1.7rem,7.2vw,2.5rem);
       line-height:1.05;
       letter-spacing:.5px;
       margin:0;
+      max-width:100%;overflow-wrap:break-word;        /* får radbrytas, sticker aldrig ut */
       background:linear-gradient(180deg,#FCE08A 0%,#F4B22A 48%,#D7951A 100%);
       -webkit-background-clip:text;background-clip:text;
       -webkit-text-fill-color:transparent;color:transparent;
@@ -98,7 +105,7 @@
     .status{
       display:inline-flex;align-items:center;gap:8px;
       margin-top:16px;
-      font-size:.74rem;letter-spacing:.4px;
+      font-size:.74rem;letter-spacing:.4px;white-space:nowrap;
       color:rgba(244,239,228,.7);
       background:rgba(255,255,255,.06);
       border:1px solid rgba(255,255,255,.12);
@@ -109,12 +116,18 @@
       box-shadow:0 0 0 0 rgba(70,210,126,.6);
       animation:pulse 1.8s infinite;
     }
+    .status.loading .live-dot{background:var(--gold);animation:pulse-gold 1.6s infinite;}
     .status.stale .live-dot{background:var(--gold);animation:none;}
     .status.error .live-dot{background:var(--red);animation:none;}
     @keyframes pulse{
       0%{box-shadow:0 0 0 0 rgba(70,210,126,.55);}
       70%{box-shadow:0 0 0 7px rgba(70,210,126,0);}
       100%{box-shadow:0 0 0 0 rgba(70,210,126,0);}
+    }
+    @keyframes pulse-gold{
+      0%{box-shadow:0 0 0 0 rgba(244,178,42,.5);}
+      70%{box-shadow:0 0 0 7px rgba(244,178,42,0);}
+      100%{box-shadow:0 0 0 0 rgba(244,178,42,0);}
     }
 
     /* ---------- Demo banner ---------- */
@@ -128,7 +141,7 @@
     .banner.show{display:block;}
 
     /* ---------- Leaderboard ---------- */
-    .board{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:11px;}
+    .board{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:11px;position:relative;}
     .row{
       position:relative;
       display:flex;align-items:center;gap:13px;
@@ -162,18 +175,20 @@
     .rank-badge.gold{background:linear-gradient(145deg,#FCE491,#F4B22A 55%,#C98A12);color:#3d2c06;}
     .rank-badge.silver{background:linear-gradient(145deg,#F2F4F7,#C3C8D0 55%,#9aa1ab);color:#2b2f36;}
     .rank-badge.bronze{background:linear-gradient(145deg,#E8C39A,#CB8A5A 55%,#9c6336);color:#3a2412;}
-    .who{flex:1 1 auto;min-width:0;}
+    .who{flex:1 1 auto;min-width:0;overflow:hidden;}
     .name-row{display:flex;align-items:center;flex-wrap:wrap;gap:6px 8px;}
     .name{
-      font-weight:700;font-size:1.08rem;line-height:1.2;min-width:0;max-width:100%;
-      white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+      flex:1 1 100%;min-width:0;                       /* egen rad – pillerna hamnar under */
+      font-weight:700;font-size:1.05rem;line-height:1.2;
+      white-space:nowrap;overflow:hidden;              /* en rad; fontstorlek krymps i JS för att rymmas */
     }
     .pill{
       flex:0 0 auto;
       font-size:.58rem;font-weight:800;letter-spacing:.5px;
       background:linear-gradient(135deg,var(--gold),var(--gold-deep));
       color:#3d2c06;
-      padding:3px 8px;border-radius:999px;text-transform:uppercase;white-space:nowrap;
+      padding:3px 8px;border-radius:999px;text-transform:uppercase;
+      max-width:100%;text-align:center;line-height:1.3;          /* får radbrytas så den aldrig sticker ut */
       box-shadow:0 1px 3px rgba(215,149,26,.4);
     }
     .lock{
@@ -181,7 +196,7 @@
       font-size:.56rem;font-weight:800;letter-spacing:.4px;text-transform:uppercase;
       color:#867a60;background:rgba(23,19,15,.05);
       border:1px solid var(--line);
-      padding:2px 7px;border-radius:999px;white-space:nowrap;
+      padding:2px 7px;border-radius:999px;max-width:100%;
     }
     /* rälsen – kör mot tjåget */
     .rail{position:relative;height:22px;margin-top:9px;}
@@ -207,8 +222,13 @@
       border-radius:2px;box-shadow:0 0 0 1px rgba(255,255,255,.5);
     }
     .metric{flex:0 0 auto;width:84px;text-align:right;}
-    .pts{font-family:'Rammetto One',sans-serif;font-size:1.4rem;line-height:1;color:var(--ink);}
-    .dist{font-size:.72rem;color:var(--muted);margin-top:6px;white-space:nowrap;}
+    .pts{font-family:'Rammetto One',sans-serif;font-size:1.25rem;line-height:1;color:var(--ink);}
+    .dist{font-size:.68rem;color:var(--muted);margin-top:6px;white-space:nowrap;}
+    /* exit-värdet vid lika score: hur långt bort spelaren drog matchen efter sitt bästa läge */
+    .exit{font-size:.62rem;font-weight:700;line-height:1.2;color:var(--gold-deep);margin-top:3px;white-space:nowrap;}
+    .exit .depart{margin-left:1px;}
+    .exit .puff{font-size:.82em;margin-right:-1px;}            /* molnet ligger tätt bakom loket */
+    .exit .loco{display:inline-block;transform:scaleX(-1);}   /* loket åker åt höger, molnet blåser bakåt (vänster) */
 
     /* ledaren – bäst i världen */
     .row.leader{
@@ -227,17 +247,78 @@
     .row.leader .pts{text-shadow:0 1px 0 rgba(255,255,255,.6);}
     .row.leader .train{filter:drop-shadow(0 0 6px rgba(244,178,42,.95));}
 
+    /* ---------- Skeleton: tom guldtron, höjd = laddat ledarkort med ETT badge ---------- */
+    /* Återanvänder riktiga .who och .rail så rälsens mått matchar exakt; namn + ett pill */
+    /* staplas precis som .name-row med ett badge → samma korthöjd, inget hopp vid kröningen. */
+    .row.skeleton{align-items:center;}
+    .row.skeleton::after{display:none;}                  /* inget guld-svep – håll platshållaren lugn */
+    .sk-block{
+      background:linear-gradient(100deg,#efe6d2 25%,#fbf5e7 50%,#efe6d2 75%);
+      background-size:200% 100%;
+      animation:skshimmer 1.15s linear infinite;
+      border-radius:7px;
+    }
+    @keyframes skshimmer{ from{background-position:200% 0;} to{background-position:-200% 0;} }
+    .sk-avatar{flex:0 0 auto;width:48px;height:48px;border-radius:50%;}
+    .skeleton .sk-names{display:flex;flex-direction:column;gap:13px;}
+    .sk-name{height:18px;width:50%;}
+    .sk-pill{height:16px;width:40%;border-radius:999px;}
+    .skeleton .rail .sk-railline{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);height:6px;border-radius:4px;}
+    .sk-pts{flex:0 0 auto;width:60px;height:24px;border-radius:6px;}
+    @media (min-width:560px){ .sk-avatar{width:54px;height:54px;} }
+
     @media (prefers-reduced-motion:reduce){
       .train{transition:none;}
       .row{transition:none;}
       .row.leader::after{display:none;}
+      .sk-block{animation:none;}
       .live-dot{animation:none;}
+      .status.loading .live-dot{animation:none;}
+      .start-btn.ready{animation:none;}
+      .spinner{animation:none;}
     }
 
     .empty{
       text-align:center;color:var(--muted);
       padding:34px 10px;font-size:.95rem;line-height:1.5;
     }
+
+    /* ---------- Startknapp / gate ---------- */
+    .gate{
+      display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;
+      flex:1 1 auto;
+      padding:30px 0 10px;text-align:center;
+      transition:opacity .2s ease, transform .2s ease;
+    }
+    .gate.hide{opacity:0;}
+    .start-btn{
+      font-family:'Poppins',sans-serif;font-weight:800;
+      font-size:1.05rem;letter-spacing:.3px;
+      display:inline-flex;align-items:center;justify-content:center;gap:9px;
+      color:#3d2c06;
+      background:linear-gradient(135deg,var(--gold),var(--gold-deep));
+      border:none;border-radius:999px;
+      padding:15px 30px;cursor:pointer;
+      box-shadow:0 6px 20px rgba(244,178,42,.4);
+      transition:transform .15s ease, box-shadow .2s ease, background .2s ease, color .2s ease;
+    }
+    .start-btn:active{transform:scale(.97);}
+    .start-btn:disabled{
+      background:linear-gradient(135deg,#ded2ba,#cabd9b);
+      color:#8a7e63;cursor:default;box-shadow:none;
+    }
+    .start-btn.ready{animation:btnpulse 2.2s ease-in-out infinite;}
+    @keyframes btnpulse{
+      0%,100%{box-shadow:0 6px 20px rgba(244,178,42,.4);}
+      50%{box-shadow:0 8px 30px rgba(244,178,42,.66);}
+    }
+    .spinner{
+      width:15px;height:15px;border-radius:50%;
+      border:2px solid rgba(61,44,6,.25);border-top-color:#8a7e63;
+      animation:spin .8s linear infinite;
+    }
+    @keyframes spin{to{transform:rotate(360deg);}}
+    .gate-hint{font-size:.8rem;color:var(--muted);margin:0;}
 
     /* ---------- Rules ---------- */
     .rules{
@@ -270,7 +351,7 @@
 
     /* ---------- Footer ---------- */
     footer{
-      margin-top:30px;text-align:center;
+      margin-top:auto;padding-top:30px;text-align:center;
       color:var(--muted);
     }
     .creed{
@@ -284,7 +365,7 @@
     @media (min-width:560px){
       .hero{padding-top:34px;padding-bottom:36px;}
       .avatar{width:54px;height:54px;font-size:1.35rem;}
-      .pts{font-size:1.6rem;}
+      .pts{font-size:1.4rem;}
       .name{font-size:1.14rem;}
     }
   </style>
@@ -297,11 +378,12 @@
         <img class="brand-engine" src="../images/engine-logo-w.png" alt="Som Tåget">
         <span class="brand-text">TÅGET</span>
       </div>
+      <p class="presents">presenterar</p>
       <h1>SOM TJÅGET RUN</h1>
       <p class="tag">Närmast <strong>ett Tjåg</strong> poäng vinner.<br>Vinnaren är bäst i världen.</p>
-      <div class="status" id="status">
+      <div class="status loading" id="status">
         <span class="live-dot"></span>
-        <span id="statusText">Hämtar ställning…</span>
+        <span id="statusText">Förbereder ställningen…</span>
       </div>
     </div>
   </header>
@@ -309,9 +391,14 @@
   <main class="wrap">
     <div class="banner" id="banner"></div>
 
-    <ol class="board" id="board" aria-live="polite">
-      <li class="empty">Laddar ställningen…</li>
-    </ol>
+    <div class="gate" id="gate">
+      <button class="start-btn" id="startBtn" type="button" disabled>
+        <span class="spinner" id="startSpinner"></span><span id="startLabel">Laddar ställningen…</span>
+      </button>
+      <p class="gate-hint" id="gateHint" style="display:none"></p>
+    </div>
+
+    <ol class="board" id="board" aria-live="polite"></ol>
 
     <details class="rules">
       <summary>Hur funkar det?</summary>
@@ -353,11 +440,26 @@
     csvUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSjpI8qiPxM9CFpazKbHFIbjJA9S-re_PrlwMwdo7wFArAVgshedPHL63WYEY-RPd_nceB_9d-so93C/pub?gid=782034468&single=true&output=csv",            // <-- publicerad CSV-URL
     refreshMs: 30000,      // uppdateringsintervall (ms)
     target: 20,            // "ett tjåg"
+    updatedMarker: "LAST_UPDATED=",   // cell-prefix som Apps Script skriver i arket (LAST_UPDATED=<ISO-tid>) → "senast uppdaterad"
+
     // Kolumnrubriker som INTE är spelare (gemener, delmatchning):
     metaHeaders:   ["date","datum","time","tid","home","hemma","away","borta","team","match","resultat","plats","arena","grupp","group"],
     // Fallback om arket istället har en namn-kolumn + en poäng-kolumn:
     nameHeaders:   ["namn","spelare","name","deltagare","player"],
-    pointsHeaders: ["poäng","poang","points","total","totalt","summa"]
+    pointsHeaders: ["poäng","poang","points","total","totalt","summa"],
+    // Visningsnamn per arkkolumn (avatarfilen styrs fortf. av kolumnnamnet, t.ex. calle.png):
+    displayNames: {
+      "Marcus":"Lilla rycket",
+      "Mats":"Julmast",
+      "Andreas":"Risky Papa",
+      "David":"Direktörley",
+      "Ludde":"Lilla kryǯǯet@rt.ru",
+      "Sven":"Alisson.",
+      "Calle":"Polen",
+      "Adrian":"Rektor Dajm",
+      "Bjorn":"Lennart Sommer",
+      "Erik":"Paul Kurakao-Advokaat"
+    }
   };
 
   // Exempeldata (visas när ingen CSV-URL är angiven)
@@ -374,7 +476,15 @@
   const $status = document.getElementById("status");
   const $statusText = document.getElementById("statusText");
   const $banner = document.getElementById("banner");
+  const $gate = document.getElementById("gate");
+  const $startBtn = document.getElementById("startBtn");
+  const $startLabel = document.getElementById("startLabel");
+  const $startSpinner = document.getElementById("startSpinner");
+  const $gateHint = document.getElementById("gateHint");
   let lastGood = null;
+  let lastDemo = false;
+  let lastUpdated = null;        // tidsstämpel från arkets LAST_UPDATED-cell (null = okänd)
+  let revealed = false;
 
   // ---------- helpers ----------
   function fmt(n){
@@ -422,7 +532,8 @@
   //  • Högt: en namn-kolumn + en poäng-kolumn, en rad per spelare.
   function extractPlayers(rows){
     const headers = rows[0].map(h=>String(h||"").trim());
-    const isMeta = h => { const l=h.toLowerCase(); return l==="" || CONFIG.metaHeaders.some(k=>l.includes(k)); };
+    const mk=(CONFIG.updatedMarker||"LAST_UPDATED=").toLowerCase();
+    const isMeta = h => { const l=h.toLowerCase(); return l==="" || l.indexOf(mk)===0 || CONFIG.metaHeaders.some(k=>l.includes(k)); };
 
     // Högt upplägg: explicit namn- + poängkolumn
     const ni=findCol(headers,CONFIG.nameHeaders), pi=findCol(headers,CONFIG.pointsHeaders);
@@ -431,7 +542,7 @@
       for(let r=1;r<rows.length;r++){
         const name=String(rows[r][ni]||"").trim();
         const pts=parseNum(rows[r][pi]);
-        if(name && !isNaN(pts)) out.push({name,points:pts,locked:false});
+        if(name && !isNaN(pts)) out.push({name,points:pts,locked:false,awaySpeed:0});
       }
       if(out.length) return out;
     }
@@ -444,21 +555,46 @@
     const out=[];
     for(let c=0;c<headers.length;c++){
       if(isMeta(headers[c])) continue;
-      let best=null, last=NaN;                        // best={v,d} – närmaste värdet; last = aktuell total
+      // Kollapsa platåer (samma total upprepas tills nästa poäng) till distinkta steg,
+      // annars blir "steget efter närmaste läget" samma värde och farten bort blir 0.
+      const moves=[];
       for(let r=1;r<rows.length;r++){
         const v=parseNum(rows[r][c]);
         if(isNaN(v)) continue;
-        last=v;
-        const d=Math.abs(CONFIG.target-v);
-        if(best===null || d<best.d) best={v,d};
+        if(!moves.length || moves[moves.length-1]!==v) moves.push(v);
       }
-      if(best) out.push({name:headers[c], points:best.v, locked: Math.abs(CONFIG.target-last) > best.d + 1e-9});
+      if(!moves.length) continue;
+      let ci=0;                                       // index för värdet närmast tjåget
+      for(let i=1;i<moves.length;i++) if(Math.abs(CONFIG.target-moves[i]) < Math.abs(CONFIG.target-moves[ci])) ci=i;
+      const bestV=moves[ci], bestD=Math.abs(CONFIG.target-bestV);
+      const last=moves[moves.length-1];
+      const locked = Math.abs(CONFIG.target-last) > bestD + 1e-9;
+      // tiebreaker "snabbast bort från tjåg": avståndsökningen i steget direkt efter
+      // närmaste läget. 0 = har inte lämnat tjåget än (eller rör sig i lås med andra).
+      const awaySpeed = (ci+1 < moves.length) ? (Math.abs(CONFIG.target-moves[ci+1]) - bestD) : 0;
+      out.push({name:headers[c], points:bestV, locked, awaySpeed});
     }
     return out;
   }
 
+  // Läser tidsstämpeln som ett Apps Script skriver i arket (cellen "LAST_UPDATED=<ISO-tid>").
+  // Då speglar pillret när DATAN senast ändrades – inte när sidan råkade polla den. Saknas
+  // cellen returneras null och pillret visar bara "Live" (ingen påhittad tid).
+  function extractUpdatedAt(rows){
+    const marker=CONFIG.updatedMarker||"LAST_UPDATED=";
+    for(const row of rows) for(const cell of row){
+      const s=String(cell==null?"":cell);
+      const i=s.indexOf(marker);
+      if(i>=0){
+        const d=new Date(s.slice(i+marker.length).trim());
+        if(!isNaN(d.getTime())) return d;
+      }
+    }
+    return null;
+  }
+
   async function fetchData(){
-    if(!CONFIG.csvUrl){ return {players:DEMO.slice(), demo:true}; }
+    if(!CONFIG.csvUrl){ return {players:DEMO.slice(), demo:true, updatedAt:null}; }
     const sep = CONFIG.csvUrl.includes("?") ? "&" : "?";
     const url = CONFIG.csvUrl + sep + "cb=" + Date.now();
     const res = await fetch(url,{cache:"no-store"});
@@ -467,30 +603,74 @@
     if(rows.length<2) throw new Error("Arket verkar tomt");
     const players = extractPlayers(rows);
     if(!players.length) throw new Error("Hittade inga spelare");
-    return {players,demo:false};
+    return {players,demo:false,updatedAt:extractUpdatedAt(rows)};
   }
 
   // ---------- render ----------
-  let animatedOnce=false;
   const COUNT_MS=800;     // hur länge varje spelares siffra + lok-inkörning tar
+  const LEADER_COUNT_MS=1700; // ledaren får en långsammare, mer dramatisk inkörning + uppräkning
   const GAP_MS=100;        // liten paus mellan spelare i den sekventiella kön
+  const LEADER_PAUSE_MS=900; // dramatisk paus (med pulserande skelett) precis innan ledaren/ledarna kröns
   const reducedMotion = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
   const medalClass = r => r===1?"gold":r===2?"silver":r===3?"bronze":"";
   // filnamn för avatar: gemener, utan diakritik/specialtecken (Björn -> bjorn)
   const slug = s => String(s).trim().toLowerCase().replace(/å|ä/g,"a").replace(/ö/g,"o").replace(/[^a-z0-9]/g,"");
+  // krymp namnets fontstorlek tills det ryms på en rad i sin kolumn (inget radbryt/avhugg)
+  function fitName(el){
+    if(!el) return;
+    el.style.fontSize="";
+    let guard=24;
+    while(el.scrollWidth > el.clientWidth+1 && guard-- > 0){
+      const cur=parseFloat(getComputedStyle(el).fontSize);
+      if(cur<=11) break;
+      el.style.fontSize=(cur-0.75)+"px";
+    }
+  }
+  // platshållarkort som pulserar överst under den dramatiska pausen, där ledaren strax landar
+  function makeSkeletonEl(){
+    const li=document.createElement("li");
+    li.className="row leader skeleton";
+    li.setAttribute("aria-hidden","true");
+    li.innerHTML=`
+      <span class="sk-block sk-avatar"></span>
+      <div class="who">
+        <div class="sk-names">
+          <span class="sk-block sk-name"></span>
+          <span class="sk-block sk-pill"></span>
+        </div>
+        <div class="rail"><span class="sk-block sk-railline"></span></div>
+      </div>
+      <span class="sk-block sk-pts"></span>`;
+    return li;
+  }
 
   function render(players, animate){
     // score = avstånd till tjåget; minst vinner
     const ranked = players
-      .map(p=>({...p, score:Math.abs(CONFIG.target-p.points)}))
-      .sort((a,b)=>a.score-b.score || b.points-a.points);
+      .map(p=>({...p, score:Math.abs(CONFIG.target-p.points), awaySpeed:p.awaySpeed||0}))
+      .sort((a,b)=> a.score-b.score || b.awaySpeed-a.awaySpeed);   // närmast vinner; lika nära → snabbast bort vinner
 
-    // gemensam ranknummer vid exakt lika score
-    let rank=0, prev=null;
-    ranked.forEach((p,idx)=>{ if(prev===null||p.score!==prev){rank=idx+1;prev=p.score;} p.rank=rank; });
-    // antal delade ledare – bygget renderar sist→först, så den första ettan som
-    // dyker upp (högsta index bland rank 1) får "Bäst i världen", resten "Också".
+    // dela rank ENBART vid genuint oavgjort: samma avstånd OCH samma fart bort från tjåget
+    const sameRank=(a,b)=> Math.abs(a.score-b.score)<1e-9 && Math.abs(a.awaySpeed-b.awaySpeed)<1e-9;
+    let rank=0;
+    ranked.forEach((p,idx)=>{ if(idx===0 || !sameRank(p,ranked[idx-1])) rank=idx+1; p.rank=rank; });
+    // delade ledare (genuint oavgjort) – bygget renderar sist→först, så den första
+    // ettan som dyker upp (högsta index bland rank 1) får titeln, resten "Också".
     const leaderCount=ranked.filter(p=>p.rank===1).length;
+    // ledaren är inte krönt förrän alla passerat 20 (ingen kan längre förbättra sig)
+    const settled=ranked.every(p=>p.locked);
+
+    // tiebreak-hint: när flera spelare delar exakt samma score avgör awaySpeed ("snabbast bort
+    // från tjåg"). Märk dem så korten visar exit-värdet (+x 💨🚂) – men bara när farten faktiskt
+    // skiljer dem åt (annars är de genuint oavgjorda och delar redan rank).
+    const byScore={};
+    ranked.forEach(p=>{ const k=p.score.toFixed(6); (byScore[k]||(byScore[k]=[])).push(p); });
+    Object.values(byScore).forEach(group=>{
+      if(group.length<2) return;
+      const speeds=group.map(p=>p.awaySpeed);
+      if(Math.max(...speeds)-Math.min(...speeds) < 1e-9) return;   // ingen fart skiljer dem
+      group.forEach(p=>{ p.tieBreak=true; });
+    });
 
     if(!ranked.length){
       $board.innerHTML='<li class="empty">Inga spelare ännu. Snart drar tjåget igång.</li>';
@@ -506,21 +686,27 @@
     const built=[];
     ranked.forEach((p,idx)=>{
       const left=posOf(p.points);
+      const display=(CONFIG.displayNames&&CONFIG.displayNames[p.name])||p.name;
       const li=document.createElement("li");
       li.className="row"+(p.rank===1?" leader":"");
-      const crown = p.rank!==1 ? "" :
-        (idx===leaderCount-1 ? '<span class="pill">🏆 Bäst i världen</span>'
-                             : '<span class="pill">Också bäst i världen</span>');
+      let crown="";
+      if(p.rank===1){
+        const first = idx===leaderCount-1;            // första ettan som renderas
+        const txt = settled
+          ? (first ? "🏆 Bäst i världen" : "Också bäst i världen")
+          : (first ? "Potentiellt bäst i världen" : "Potentiellt också bäst i världen");
+        crown='<span class="pill">'+txt+'</span>';
+      }
       const lock = p.locked ? '<span class="lock">🏁 Passerat tjåg</span>' : "";
       li.innerHTML=`
         <div class="avatar">
-          <span class="initial">${esc(p.name.trim().charAt(0).toUpperCase())}</span>
+          <span class="initial">${esc(display.trim().charAt(0).toUpperCase())}</span>
           <img class="face" src="images/${slug(p.name)}.png" alt="" loading="lazy" onerror="this.remove()">
           <span class="rank-badge ${medalClass(p.rank)}">${p.rank}</span>
         </div>
         <div class="who">
           <div class="name-row">
-            <span class="name">${esc(p.name)}</span>
+            <span class="name">${esc(display)}</span>
             ${crown}${lock}
           </div>
           <div class="rail">
@@ -533,6 +719,7 @@
         <div class="metric">
           <div class="pts"><span class="num">${animate?fmt(0):fmt(p.points)}</span></div>
           <div class="dist">${fmt(p.score)} från Tjåg</div>
+          ${p.tieBreak?`<div class="exit" title="Lämnade tjåget med +${fmt(p.awaySpeed)} poäng matchen efter sitt bästa läge – avgör vid lika score">${p.awaySpeed>0?'+':''}${fmt(p.awaySpeed)}<span class="depart"><span class="puff">💨</span><span class="loco">🚂</span></span></div>`:''}
         </div>`;
       const train=li.querySelector(".train");
       const buffer=li.querySelector(".buffer");
@@ -546,6 +733,7 @@
       } else {
         train.style.left=left+"%";
         $board.appendChild(li);
+        fitName(li.querySelector(".name"));
       }
       built.push({li, train, left, num:li.querySelector(".num"), to:p.points});
     });
@@ -554,24 +742,72 @@
       // bygg ställningen sist → först: varje spelare läggs ÖVERST och knuffar ner
       // de som redan ligger där (FLIP). Vinnaren dimper in överst allra sist.
       const queue=built.slice().reverse();
-      let qi=0;
-      const runNext=()=>{
-        if(qi>=queue.length) return;
-        const b=queue[qi++];
+      let qi=0, skeleton=null;
+
+      // gör en DOM-ändring och låt befintliga kort glida mjukt till sina nya lägen (FLIP)
+      const flip=(mutate,onFrame)=>{
         const movers=Array.from($board.children);
         const before=movers.map(el=>el.getBoundingClientRect().top);
-        $board.insertBefore(b.li, $board.firstChild);          // lägg överst
-        const after=movers.map(el=>el.getBoundingClientRect().top);
-        movers.forEach((el,i)=>{ el.style.transition="none"; el.style.transform="translateY("+(before[i]-after[i])+"px)"; });
+        mutate();
+        const after=movers.map(el=>el.isConnected?el.getBoundingClientRect().top:null);
+        movers.forEach((el,i)=>{ if(after[i]==null) return; el.style.transition="none"; el.style.transform="translateY("+(before[i]-after[i])+"px)"; });
         void $board.offsetHeight;                              // tvinga reflow
         requestAnimationFrame(()=>{
-          movers.forEach(el=>{ el.style.transition="transform .45s cubic-bezier(.22,1,.36,1)"; el.style.transform=""; });
-          b.li.style.opacity="1"; b.li.style.transform="translateY(0)";   // ny rad dimper in
-          b.train.style.transition="left "+(COUNT_MS/1000)+"s cubic-bezier(.22,1,.36,1)";
-          b.train.style.left=b.left+"%";
-          countUp(b.num, b.to, COUNT_MS, ()=>setTimeout(runNext, GAP_MS));
+          movers.forEach((el,i)=>{ if(after[i]==null) return; el.style.transition="transform .45s cubic-bezier(.22,1,.36,1)"; el.style.transform=""; });
+          if(onFrame) onFrame();
         });
       };
+
+      // visa platshållaren överst (där ledaren strax landar)
+      const showSkeleton=()=>{
+        skeleton=makeSkeletonEl();
+        skeleton.style.opacity="0"; skeleton.style.transform="translateY(-8px)";
+        flip(()=>$board.insertBefore(skeleton,$board.firstChild), ()=>{
+          skeleton.style.transition="opacity .3s ease, transform .3s ease";
+          skeleton.style.opacity="1"; skeleton.style.transform="translateY(0)";
+        });
+      };
+
+      // efter varje kort: dramatisk paus + skelett precis innan första ledaren kröns
+      const scheduleNext=(curIsLeader)=>{
+        const next=queue[qi];
+        const dramatic = next && next.li.classList.contains("leader") && !curIsLeader;
+        if(dramatic){ showSkeleton(); setTimeout(runNext, LEADER_PAUSE_MS); }
+        else setTimeout(runNext, GAP_MS);
+      };
+
+      function runNext(){
+        if(qi>=queue.length){ if(skeleton){ skeleton.remove(); skeleton=null; } return; }
+        const b=queue[qi++];
+        const isLeader=b.li.classList.contains("leader");
+        const startTrainAndCount=()=>{
+          const dur = isLeader ? LEADER_COUNT_MS : COUNT_MS;   // ledaren rullar in och räknas upp långsammare
+          b.train.style.transition="left "+(dur/1000)+"s cubic-bezier(.22,1,.36,1)";
+          b.train.style.left=b.left+"%";
+          countUp(b.num, b.to, dur, ()=>scheduleNext(isLeader));
+        };
+
+        if(isLeader && skeleton){
+          // ledaren tar platshållarens plats i flödet; skelettet tonas ut ovanpå (crossfade) – inga hopp
+          const sk=skeleton; skeleton=null;
+          const skTop=sk.getBoundingClientRect().top-$board.getBoundingClientRect().top;
+          const SK_FADE=400;
+          flip(()=>{ $board.replaceChild(b.li, sk); fitName(b.li.querySelector(".name")); }, ()=>{
+            b.li.style.transition="none"; b.li.style.opacity="1"; b.li.style.transform="translateY(0)";  // ligger klar under skelettet
+            sk.style.position="absolute"; sk.style.left="0"; sk.style.right="0"; sk.style.top=skTop+"px"; sk.style.margin="0"; sk.style.pointerEvents="none";
+            $board.appendChild(sk);
+            requestAnimationFrame(()=>{ sk.style.transition="opacity "+(SK_FADE/1000)+"s ease"; sk.style.opacity="0"; });
+            // loket rullar och poängen räknas upp först när skelettet tonat ut och kortet faktiskt syns
+            setTimeout(()=>{ sk.remove(); startTrainAndCount(); }, SK_FADE);
+          });
+        } else {
+          flip(()=>{ $board.insertBefore(b.li,$board.firstChild); fitName(b.li.querySelector(".name")); }, ()=>{
+            b.li.style.transition="opacity .45s ease, transform .45s cubic-bezier(.22,1,.36,1)";
+            b.li.style.opacity="1"; b.li.style.transform="translateY(0)";   // ny rad dimper in
+            startTrainAndCount();
+          });
+        }
+      }
       requestAnimationFrame(runNext);
     }
   }
@@ -589,31 +825,96 @@
   function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
 
   function setStatus(state,text){
+    $status.style.display="";                  // åter synlig (kan ha dolts när tid saknades)
     $status.className="status"+(state?(" "+state):"");
     $statusText.textContent=text;
   }
 
-  // ---------- loop ----------
-  async function load(){
+  // ---------- data-status (banner + live-pill) ----------
+  function fmtStamp(d){
+    const time=d.toLocaleTimeString("sv-SE",{hour:"2-digit",minute:"2-digit"});
+    if(d.toDateString()===new Date().toDateString()) return time;                       // idag → bara klockslag
+    return d.toLocaleDateString("sv-SE",{day:"numeric",month:"short"})+" "+time;        // annars datum + tid
+  }
+  function showDataStatus(demo){
+    $banner.classList.toggle("show",!!demo);
+    if(demo){
+      $banner.textContent="Visar exempeldata. Klistra in din publicerade CSV-URL i koden (CONFIG.csvUrl) så går det live.";
+      const t=new Date().toLocaleTimeString("sv-SE",{hour:"2-digit",minute:"2-digit"});
+      setStatus("stale","Demo • Senast uppdaterad "+t);
+      return;
+    }
+    // Visa när datan SENAST ÄNDRADES (arkets LAST_UPDATED-cell). Saknas den – skriptet ej
+    // igång – döljer vi pillret hellre än att visa något missvisande.
+    if(lastUpdated){ setStatus("","Senast uppdaterad "+fmtStamp(lastUpdated)); }
+    else { $status.style.display="none"; }
+  }
+
+  // ---------- förladda avatarer så de finns i cache (inget placeholder-hopp) ----------
+  function preloadAvatars(players){
+    return Promise.all(players.map(p=>new Promise(res=>{
+      const img=new Image(); let done=false; const fin=()=>{ if(!done){done=true;res();} };
+      img.onload=fin; img.onerror=fin; setTimeout(fin,6000);   // hängande bild blockerar inte knappen
+      img.src="images/"+slug(p.name)+".png";
+    })));
+  }
+
+  // ---------- knapp-states: loading | ready | retry ----------
+  let btnMode="loading";
+  function setBtn(mode){
+    btnMode=mode;
+    $startBtn.disabled = (mode==="loading");
+    $startBtn.classList.toggle("ready", mode==="ready");
+    $startSpinner.style.display = (mode==="loading") ? "" : "none";
+    if(mode==="loading"){ $startLabel.textContent="Laddar Som Tjåget Run…"; $gateHint.style.display="none"; }
+    else if(mode==="ready"){ $startLabel.textContent="Som Tjåget Run Leaderboard"; $gateHint.style.display="none"; }
+    else { $startLabel.textContent="Försök igen"; $gateHint.textContent="Kunde inte hämta ställningen."; $gateHint.style.display=""; }
+  }
+
+  // ---------- förbered (hämta + förladda) → avslöja på klick → live-uppdatering ----------
+  async function prepare(){
+    setBtn("loading"); setStatus("loading","Laddar…");
     try{
-      const {players,demo}=await fetchData();
-      lastGood=players;
-      render(players, !animatedOnce && !reducedMotion); animatedOnce=true;
-      $banner.classList.toggle("show",!!demo);
-      if(demo) $banner.textContent="Visar exempeldata. Klistra in din publicerade CSV-URL i koden (CONFIG.csvUrl) så går det live.";
-      const t=new Date().toLocaleTimeString("sv-SE",{hour:"2-digit",minute:"2-digit",second:"2-digit"});
-      setStatus(demo?"stale":"", (demo?"Demo • ":"Live • ")+"Senast uppdaterad "+t);
+      const {players,demo,updatedAt}=await fetchData();
+      lastGood=players; lastDemo=demo; lastUpdated=updatedAt;
+      await preloadAvatars(players);
+      setBtn("ready"); setStatus("stale","Redo att visa");
+    }catch(err){ console.error(err); setBtn("retry"); setStatus("error","Kunde inte ladda"); }
+  }
+
+  function reveal(){
+    if(revealed) return;
+    revealed=true;
+    showDataStatus(lastDemo);                    // statuspillret byter till "Live …" på plats
+    const gh=$gate.offsetHeight;                 // mät gatens höjd innan den göms
+    $gate.classList.add("hide");
+    setTimeout(()=>{
+      $board.style.minHeight=gh+"px";            // reservera utrymmet så inget hoppar när gaten försvinner
+      $gate.style.display="none";
+      render(lastGood, !reducedMotion);
+      const buildMs=(COUNT_MS+GAP_MS)*(lastGood.length||0)+LEADER_PAUSE_MS+500;
+      setTimeout(()=>{ $board.style.minHeight=""; }, reducedMotion?0:buildMs);
+    }, 220);
+    setInterval(refresh, CONFIG.refreshMs);
+    document.addEventListener("visibilitychange",()=>{ if(!document.hidden) refresh(); });
+  }
+
+  async function refresh(){
+    try{
+      const {players,demo,updatedAt}=await fetchData();
+      lastGood=players; lastDemo=demo; lastUpdated=updatedAt;
+      render(players, false);                 // tyst uppdatering, ingen bygg-animation
+      showDataStatus(demo);
     }catch(err){
       if(lastGood){ render(lastGood, false); setStatus("error","Kunde inte uppdatera – visar senaste ställning"); }
-      else { $board.innerHTML='<li class="empty">Kunde inte hämta ställningen just nu.<br>Försöker igen…</li>'; setStatus("error","Kunde inte hämta ställningen"); }
       console.error(err);
     }
   }
 
   (function(){ const y=document.getElementById("year"); if(y) y.textContent=new Date().getFullYear(); })();
-  load();
-  setInterval(load, CONFIG.refreshMs);
-  document.addEventListener("visibilitychange",()=>{ if(!document.hidden) load(); });
+  $startBtn.addEventListener("click",()=>{ if(btnMode==="ready") reveal(); else if(btnMode==="retry") prepare(); });
+  window.addEventListener("resize",()=>$board.querySelectorAll(".name").forEach(fitName));
+  prepare();
   </script>
 </body>
 </html>
