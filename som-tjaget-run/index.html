@@ -914,7 +914,9 @@
       render(players, false);                 // tyst uppdatering, ingen bygg-animation
       showDataStatus(demo);
     }catch(err){
-      if(lastGood){ render(lastGood, false); setStatus("error","Kunde inte uppdatera – visar senaste ställning"); }
+      // Bakgrundspollen failade (långsamt nät / timeout). Datan ändras 1–2 ggr/dygn, så en
+      // missad poll är ett icke-event: behåll tavlan och "Senast uppdaterad"-tiden som redan
+      // visas istället för att blinka rött. Nästa lyckade poll (om 30 s) rättar tiden själv.
       console.error(err);
     }
   }
