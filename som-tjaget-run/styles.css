@@ -149,6 +149,7 @@
     .avatar .face{
       position:absolute;inset:0;width:100%;height:100%;
       border-radius:50%;object-fit:cover;object-position:center;
+      transition:filter .5s ease;                       /* porträttet avfärgas mjukt vid "flippen" till terminal */
     }
     .rank-badge{
       position:absolute;bottom:-4px;right:-4px;z-index:2;
@@ -232,6 +233,17 @@
     @keyframes shimmer{ 0%{left:-60%;} 35%,100%{left:130%;} }
     .row.leader .pts{text-shadow:0 1px 0 rgba(255,255,255,.6);}
     .row.leader .train{filter:drop-shadow(0 0 6px rgba(244,178,42,.95));}
+
+    /* terminal – passerat tjåg OCH inte längre med i kampen (kan inte vinna).
+       Kortet bleknar och porträttet går i gråskala = ute. Rälsens stoppbock signalerar redan
+       "passerat" – det här lägger till "och därmed ur leken". */
+    .row.terminal{
+      background:linear-gradient(180deg,#ecebe7,#e3e1db);   /* avsvalnat grått istället för varm grädde – ur leken */
+      border-color:#d8d4cb;
+      box-shadow:0 1px 4px rgba(23,19,15,.05);              /* plattare skugga än aktiva kort */
+      opacity:.72;
+    }
+    .row.terminal .avatar .face{filter:grayscale(1);}
 
     /* ---------- Skeleton: tom guldtron, höjd = laddat ledarkort med ETT badge ---------- */
     /* Återanvänder riktiga .who och .rail så rälsens mått matchar exakt; namn + ett pill */

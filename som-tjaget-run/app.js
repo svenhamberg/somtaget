@@ -238,6 +238,9 @@
     const sameRank=(a,b)=> Math.abs(a.score-b.score)<1e-9 && Math.abs(a.awaySpeed-b.awaySpeed)<1e-9;
     let rank=0;
     ranked.forEach((p,idx)=>{ if(idx===0 || !sameRank(p,ranked[idx-1])) rank=idx+1; p.rank=rank; });
+    // "terminal" = passerat tjåg OCH inte etta. En låst spelares score är fryst (kan inte
+    // förbättras), så har någon redan en bättre score är de matematiskt ute ur leken.
+    ranked.forEach(p=>{ p.terminal = !!p.locked && p.rank!==1; });
     const leaderCount=ranked.filter(p=>p.rank===1).length;
     // ledaren är inte krönt förrän alla passerat 20 (ingen kan längre förbättra sig)
     const settled=ranked.every(p=>p.locked);
@@ -324,7 +327,8 @@
       const left=posOf(p.points);
       const li=document.createElement("li");
       li.dataset.name=p.name;                          // stabil identitet → patch() matchar kort vid uppdatering
-      li.className="row"+(p.rank===1?" leader":"");
+      // vid bygg-animation: rendera normalt och flippa till "terminal" först när sista kortet landat (se runNext)
+      li.className="row"+(p.rank===1?" leader":"")+(!animate&&p.terminal?" terminal":"");
       li.innerHTML=rowInnerHTML(p, idx, leaderCount, settled, animate?fmt(0):fmt(p.points));
       const train=li.querySelector(".train");
       const buffer=li.querySelector(".buffer");
@@ -340,7 +344,7 @@
         $board.appendChild(li);
         fitName(li.querySelector(".name"));
       }
-      built.push({li, train, left, num:li.querySelector(".num"), to:p.points});
+      built.push({li, train, left, num:li.querySelector(".num"), to:p.points, terminal:p.terminal});
     });
 
     if(animate){
@@ -385,7 +389,11 @@
 
       function runNext(){
         if(myGen!==buildGen) return;          // en nyare render() har tagit över → avbryt detta bygge
-        if(qi>=queue.length){ if(skeleton){ skeleton.remove(); skeleton=null; } return; }
+        if(qi>=queue.length){
+          if(skeleton){ skeleton.remove(); skeleton=null; }
+          built.forEach(b=>{ if(b.terminal) b.li.classList.add("terminal"); });   // bygget klart → flippa de utslagna till "terminal"
+          return;
+        }
         const b=queue[qi++];
         const isLeader=b.li.classList.contains("leader");
         const startTrainAndCount=()=>{
@@ -553,7 +561,7 @@
 
     // 2) byt innehåll, sätt loket på GAMLA läget, ordna om korten i DOM (bäst först)
     snap.forEach(s=>{
-      s.li.className="row"+(s.p.rank===1?" leader":"");
+      s.li.className="row"+(s.p.rank===1?" leader":"")+(s.p.terminal?" terminal":"");
       s.li.innerHTML=rowInnerHTML(s.p, s.idx, leaderCount, settled, fmt(isNaN(s.oldPts)?s.p.points:s.oldPts));
       placeTrain(s.li, s.oldLeft);
       fitName(s.li.querySelector(".name"));
