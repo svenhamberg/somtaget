@@ -103,33 +103,41 @@
     }
     .tag strong{color:var(--gold);}
 
+    /* statuspillret är också uppdatera-knappen (blir interaktivt = .live efter att tavlan visats) */
     .status{
       display:inline-flex;align-items:center;gap:8px;
       margin-top:16px;
+      font-family:inherit;
       font-size:.74rem;letter-spacing:.4px;white-space:nowrap;
       color:rgba(244,239,228,.7);
       background:rgba(255,255,255,.06);
       border:1px solid rgba(255,255,255,.12);
       padding:6px 12px;border-radius:999px;
     }
+    button.status{cursor:default;}
+    button.status.live{cursor:pointer;transition:background .15s ease, border-color .15s ease;}
+    button.status.live:hover{background:rgba(255,255,255,.11);border-color:rgba(255,255,255,.22);}
+    button.status.live:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
     .live-dot{
-      width:8px;height:8px;border-radius:50%;background:#46d27e;
-      box-shadow:0 0 0 0 rgba(70,210,126,.6);
-      animation:pulse 1.8s infinite;
+      width:8px;height:8px;border-radius:50%;background:#46d27e;flex:0 0 auto;   /* grön: laddad. Statisk – inget pulserande "live" längre */
     }
-    .status.loading .live-dot{background:var(--gold);animation:pulse-gold 1.6s infinite;}
-    .status.stale .live-dot{background:var(--gold);animation:none;}
-    .status.error .live-dot{background:var(--red);animation:none;}
-    @keyframes pulse{
-      0%{box-shadow:0 0 0 0 rgba(70,210,126,.55);}
-      70%{box-shadow:0 0 0 7px rgba(70,210,126,0);}
-      100%{box-shadow:0 0 0 0 rgba(70,210,126,0);}
+    .status.warn .live-dot{background:var(--gold);}    /* amber: senaste uppdatering misslyckades */
+    .badge-spin{                                        /* spinner medan en uppdatering pågår (ersätter pricken) */
+      width:11px;height:11px;border-radius:50%;flex:0 0 auto;display:none;
+      border:2px solid rgba(244,239,228,.3);border-top-color:var(--cream);
+      animation:spin .8s linear infinite;
     }
-    @keyframes pulse-gold{
-      0%{box-shadow:0 0 0 0 rgba(244,178,42,.5);}
-      70%{box-shadow:0 0 0 7px rgba(244,178,42,0);}
-      100%{box-shadow:0 0 0 0 rgba(244,178,42,0);}
+    .badge-refresh{                                     /* ⟳ – visas bara när pillret är en knapp (display styrs i JS) */
+      display:none;padding-left:9px;
+      border-left:1px solid rgba(255,255,255,.18);      /* delare: status | uppdatera-åtgärd */
+      color:var(--gold);font-size:1.05rem;line-height:1;
     }
+    button.status.live:hover .badge-refresh{color:#ffd470;}   /* lite ljusare guld vid hover */
+    .status-warn{
+      margin:9px auto 0;max-width:32ch;
+      font-size:.72rem;line-height:1.45;color:#f0c66b;   /* amber, läsbart på mörk hero */
+    }
+    .status-warn[hidden]{display:none;}
 
     /* ---------- Demo banner ---------- */
     .banner{
@@ -273,10 +281,9 @@
       .row{transition:none;}
       .row.leader::after{display:none;}
       .sk-block{animation:none;}
-      .live-dot{animation:none;}
-      .status.loading .live-dot{animation:none;}
       .start-btn.ready{animation:none;}
       .spinner{animation:none;}
+      .badge-spin{animation:none;}
     }
 
     .empty{
@@ -378,10 +385,13 @@
       <p class="presents">presenterar</p>
       <h1>SOM TJÅGET RUN</h1>
       <p class="tag">Närmast <strong>ett Tjåg</strong> poäng vinner.<br>Vinnaren är bäst i världen.</p>
-      <div class="status loading" id="status">
+      <button class="status" id="status" type="button" aria-label="Uppdatera ställningen">
         <span class="live-dot"></span>
+        <span class="badge-spin" aria-hidden="true"></span>
         <span id="statusText">Förbereder ställningen…</span>
-      </div>
+        <span class="badge-refresh" aria-hidden="true">⟳</span>
+      </button>
+      <p class="status-warn" id="statusWarn" role="status" hidden>Kunde inte uppdatera – tryck för att försöka igen.</p>
     </div>
   </header>
 
@@ -434,7 +444,6 @@
   // ============================================================
   const CONFIG = {
     csvUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSjpI8qiPxM9CFpazKbHFIbjJA9S-re_PrlwMwdo7wFArAVgshedPHL63WYEY-RPd_nceB_9d-so93C/pub?gid=610468794&single=true&output=csv",            // <-- publicerad CSV-URL
-    refreshMs: 30000,      // uppdateringsintervall (ms)
     fetchTimeoutMs: 12000, // avbryt en hängande hämtning så knappen hamnar i "Försök igen" istället för att snurra för evigt
     target: 20,            // "ett tjåg"
     updatedMarker: "LAST_UPDATED=",   // cell-prefix som Apps Script skriver i arket (LAST_UPDATED=<ISO-tid>) → "senast uppdaterad"
@@ -478,7 +487,12 @@
   const $startLabel = document.getElementById("startLabel");
   const $startSpinner = document.getElementById("startSpinner");
   const $gateHint = document.getElementById("gateHint");
+  const $liveDot = $status.querySelector(".live-dot");
+  const $badgeSpin = $status.querySelector(".badge-spin");
+  const $badgeRefresh = $status.querySelector(".badge-refresh");
+  const $statusWarn = document.getElementById("statusWarn");
   let lastGood = null;
+  let refreshing = false;       // en manuell uppdatering pågår (ignorera nya klick under tiden)
   let lastDemo = false;
   let lastUpdated = null;        // tidsstämpel från arkets LAST_UPDATED-cell (null = okänd)
   let revealed = false;
@@ -648,23 +662,20 @@
     return li;
   }
 
-  function render(players, animate){
-    const myGen=++buildGen;     // ogiltigförklara ev. pågående bygge (t.ex. ett som frusit i bakgrundsflik)
+  // gemensam rankning: score, delad rank, ledarantal, "settled" och tiebreak-flaggor.
+  // Används av både bygg-render() och patch() så logiken aldrig glider isär.
+  function rankPlayers(players){
     // score = avstånd till tjåget; minst vinner
     const ranked = players
       .map(p=>({...p, score:Math.abs(CONFIG.target-p.points), awaySpeed:p.awaySpeed||0}))
       .sort((a,b)=> a.score-b.score || b.awaySpeed-a.awaySpeed);   // närmast vinner; lika nära → snabbast bort vinner
-
     // dela rank ENBART vid genuint oavgjort: samma avstånd OCH samma fart bort från tjåget
     const sameRank=(a,b)=> Math.abs(a.score-b.score)<1e-9 && Math.abs(a.awaySpeed-b.awaySpeed)<1e-9;
     let rank=0;
     ranked.forEach((p,idx)=>{ if(idx===0 || !sameRank(p,ranked[idx-1])) rank=idx+1; p.rank=rank; });
-    // delade ledare (genuint oavgjort) – bygget renderar sist→först, så den första
-    // ettan som dyker upp (högsta index bland rank 1) får titeln, resten "Också".
     const leaderCount=ranked.filter(p=>p.rank===1).length;
     // ledaren är inte krönt förrän alla passerat 20 (ingen kan längre förbättra sig)
     const settled=ranked.every(p=>p.locked);
-
     // tiebreak-hint: när flera spelare delar exakt samma score avgör awaySpeed ("snabbast bort
     // från tjåg"). Märk dem så korten visar exit-värdet (+x 💨🚂) – men bara när farten faktiskt
     // skiljer dem åt (annars är de genuint oavgjorda och delar redan rank).
@@ -676,34 +687,23 @@
       if(Math.max(...speeds)-Math.min(...speeds) < 1e-9) return;   // ingen fart skiljer dem
       group.forEach(p=>{ p.tieBreak=true; });
     });
+    return {ranked, leaderCount, settled};
+  }
 
-    if(!ranked.length){
-      $board.innerHTML='<li class="empty">Inga spelare ännu. Snart drar tjåget igång.</li>';
-      return;
+  // innehållet i ett kort (identiskt för bygg-render och patch). numText = poängtexten som visas.
+  // delade ledare: kortet med idx===leaderCount-1 får titeln "🏆 Bäst i världen", övriga "Också".
+  function rowInnerHTML(p, idx, leaderCount, settled, numText){
+    const display=(CONFIG.displayNames&&CONFIG.displayNames[p.name])||p.name;
+    let crown="";
+    if(p.rank===1){
+      const first = idx===leaderCount-1;
+      const txt = settled
+        ? (first ? "🏆 Bäst i världen" : "Också bäst i världen")
+        : (first ? "Potentiellt bäst i världen" : "Potentiellt också bäst i världen");
+      crown='<span class="pill">'+txt+'</span>';
     }
-
-    // domän centrerad på tjåget; lokens läge mappas till 4–96 % så det syns
-    const maxAbs=Math.max(4, ...ranked.map(p=>p.score));
-    const lo=CONFIG.target-maxAbs, span=maxAbs*2;
-    const posOf = pts => 4 + Math.max(0,Math.min(1,(pts-lo)/span))*92;
-
-    $board.innerHTML="";
-    const built=[];
-    ranked.forEach((p,idx)=>{
-      const left=posOf(p.points);
-      const display=(CONFIG.displayNames&&CONFIG.displayNames[p.name])||p.name;
-      const li=document.createElement("li");
-      li.className="row"+(p.rank===1?" leader":"");
-      let crown="";
-      if(p.rank===1){
-        const first = idx===leaderCount-1;            // första ettan som renderas
-        const txt = settled
-          ? (first ? "🏆 Bäst i världen" : "Också bäst i världen")
-          : (first ? "Potentiellt bäst i världen" : "Potentiellt också bäst i världen");
-        crown='<span class="pill">'+txt+'</span>';
-      }
-      const lock = p.locked ? '<span class="lock">🏁 Passerat tjåg</span>' : "";
-      li.innerHTML=`
+    const lock = p.locked ? '<span class="lock">🏁 Passerat tjåg</span>' : "";
+    return `
         <div class="avatar">
           <span class="initial">${esc(display.trim().charAt(0).toUpperCase())}</span>
           <img class="face" src="images/${slug(p.name)}.png" alt="" loading="lazy" onerror="this.remove()">
@@ -722,10 +722,45 @@
           </div>
         </div>
         <div class="metric">
-          <div class="pts"><span class="num">${animate?fmt(0):fmt(p.points)}</span></div>
+          <div class="pts"><span class="num">${numText}</span></div>
           <div class="dist">${fmt(p.score)} från Tjåg</div>
           ${p.tieBreak?`<div class="exit" title="Lämnade tjåget med +${fmt(p.awaySpeed)} poäng matchen efter sitt bästa läge – avgör vid lika score">${p.awaySpeed>0?'+':''}${fmt(p.awaySpeed)}<span class="depart"><span class="puff">💨</span><span class="loco">🚂</span></span></div>`:''}
         </div>`;
+  }
+
+  // placera lok (+ stoppbock/rälsklipp för låsta spelare) på en given position i %
+  function placeTrain(li, left){
+    const train=li.querySelector(".train");
+    const buffer=li.querySelector(".buffer");
+    if(train) train.style.left=left+"%";
+    if(buffer){
+      buffer.style.left=left+"%";
+      const rl=li.querySelector(".rail-line"); if(rl) rl.style.right="calc("+(100-left)+"% - 11px)";
+    }
+  }
+
+  function render(players, animate){
+    const myGen=++buildGen;     // ogiltigförklara ev. pågående bygge (t.ex. ett som frusit i bakgrundsflik)
+    const {ranked, leaderCount, settled}=rankPlayers(players);
+
+    if(!ranked.length){
+      $board.innerHTML='<li class="empty">Inga spelare ännu. Snart drar tjåget igång.</li>';
+      return;
+    }
+
+    // domän centrerad på tjåget; lokens läge mappas till 4–96 % så det syns
+    const maxAbs=Math.max(4, ...ranked.map(p=>p.score));
+    const lo=CONFIG.target-maxAbs, span=maxAbs*2;
+    const posOf = pts => 4 + Math.max(0,Math.min(1,(pts-lo)/span))*92;
+
+    $board.innerHTML="";
+    const built=[];
+    ranked.forEach((p,idx)=>{
+      const left=posOf(p.points);
+      const li=document.createElement("li");
+      li.dataset.name=p.name;                          // stabil identitet → patch() matchar kort vid uppdatering
+      li.className="row"+(p.rank===1?" leader":"");
+      li.innerHTML=rowInnerHTML(p, idx, leaderCount, settled, animate?fmt(0):fmt(p.points));
       const train=li.querySelector(".train");
       const buffer=li.querySelector(".buffer");
       if(buffer){
@@ -832,10 +867,16 @@
   }
   function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
 
-  function setStatus(state,text){
-    $status.style.display="";                  // åter synlig (kan ha dolts när tid saknades)
-    $status.className="status"+(state?(" "+state):"");
-    $statusText.textContent=text;
+  // Pillrets tre lägen: "loading" (spinner), "idle" (grön prick) och "warn" (amber prick + varning under).
+  // .live (= interaktiv knapp) sätts först när tavlan visats; då dyker ↻ upp och pillret går att klicka.
+  function setBadge(mode, text){
+    $status.className = "status" + (revealed?" live":"") + (mode==="warn"?" warn":"");
+    const loading = (mode==="loading");
+    $liveDot.style.display = loading ? "none" : "";
+    $badgeSpin.style.display = loading ? "inline-block" : "none";
+    $badgeRefresh.style.display = (revealed && !loading) ? "inline" : "none";
+    if(text!=null) $statusText.textContent = text;
+    $statusWarn.hidden = !(mode==="warn" && revealed);   // varningsraden hör bara hemma när pillret är retry-knappen
   }
 
   // ---------- data-status (banner + live-pill) ----------
@@ -849,13 +890,12 @@
     if(demo){
       $banner.textContent="Visar exempeldata. Klistra in din publicerade CSV-URL i koden (CONFIG.csvUrl) så går det live.";
       const t=new Date().toLocaleTimeString("sv-SE",{hour:"2-digit",minute:"2-digit"});
-      setStatus("stale","Demo • Senast uppdaterad "+t);
+      setBadge("idle","Demo • Ställningen uppdaterad "+t);
       return;
     }
-    // Visa när datan SENAST ÄNDRADES (arkets LAST_UPDATED-cell). Saknas den – skriptet ej
-    // igång – döljer vi pillret hellre än att visa något missvisande.
-    if(lastUpdated){ setStatus("","Senast uppdaterad "+fmtStamp(lastUpdated)); }
-    else { $status.style.display="none"; }
+    // Texten gäller DATAN (arkets LAST_UPDATED-cell), inte sidan. Saknas cellen visar vi ändå
+    // pillret som en uppdatera-knapp – bara utan tidsstämpel.
+    setBadge("idle", lastUpdated ? "Ställningen uppdaterad "+fmtStamp(lastUpdated) : "Uppdatera ställningen");
   }
 
   // ---------- förladda avatarer så de finns i cache (inget placeholder-hopp) ----------
@@ -881,13 +921,13 @@
 
   // ---------- förbered (hämta + förladda) → avslöja på klick → live-uppdatering ----------
   async function prepare(){
-    setBtn("loading"); setStatus("loading","Laddar…");
+    setBtn("loading"); setBadge("loading","Laddar…");
     try{
       const {players,demo,updatedAt}=await fetchData();
       lastGood=players; lastDemo=demo; lastUpdated=updatedAt;
       await preloadAvatars(players);
-      setBtn("ready"); setStatus("stale","Redo att visa");
-    }catch(err){ console.error(err); setBtn("retry"); setStatus("error","Kunde inte ladda"); }
+      setBtn("ready"); setBadge("idle","Redo att visa");
+    }catch(err){ console.error(err); setBtn("retry"); setBadge("warn","Kunde inte ladda"); }
   }
 
   function reveal(){
@@ -905,22 +945,101 @@
     }, 220);
   }
 
-  async function refresh(){
+  // räkna en siffra från ett startvärde till ett slutvärde (poäng som ändrats vid uppdatering)
+  function countUpFrom(el, from, to, ms){
+    if(!el) return;
+    const start=performance.now(), delta=to-from;
+    (function step(now){
+      const t=Math.min(1,(now-start)/ms), e=1-Math.pow(1-t,3);
+      el.textContent=fmt(Math.round(from+delta*e));
+      if(t<1) requestAnimationFrame(step);
+      else el.textContent=fmt(to);
+    })(performance.now());
+  }
+
+  // Uppdatera tavlan PÅ PLATS: samma kort återanvänds, innehållet byts, och om ordningen
+  // ändrats glider korten till sina nya lägen (FLIP) i stället för att hela listan byggs om.
+  function patch(players){
+    ++buildGen;                                    // avbryt ev. pågående bygg-animation
+    const {ranked, leaderCount, settled}=rankPlayers(players);
+    if(!ranked.length){ render(players,false); return; }
+
+    const existing={};
+    Array.from($board.children).forEach(li=>{ if(li.dataset && li.dataset.name) existing[li.dataset.name]=li; });
+    const sameSet = ranked.length===Object.keys(existing).length && ranked.every(p=>existing[p.name]);
+    if(!sameSet){ render(players,false); return; }  // spelaruppsättningen ändrad (sällsynt) → bygg om helt
+
+    // domän centrerad på tjåget; lokens läge mappas till 4–96 %
+    const maxAbs=Math.max(4, ...ranked.map(p=>p.score));
+    const lo=CONFIG.target-maxAbs, span=maxAbs*2;
+    const posOf = pts => 4 + Math.max(0,Math.min(1,(pts-lo)/span))*92;
+
+    // 1) mät nuvarande lägen + spara gamla värden FÖRE någon mutation
+    const snap=ranked.map((p,idx)=>{
+      const li=existing[p.name];
+      const train=li.querySelector(".train");
+      const ol=train?parseFloat(train.style.left):NaN;
+      return { p, idx, li,
+        beforeTop: li.getBoundingClientRect().top,
+        oldLeft: isNaN(ol)?posOf(p.points):ol,
+        oldPts: parseNum(li.querySelector(".num")?.textContent),
+        newLeft: posOf(p.points) };
+    });
+
+    // 2) byt innehåll, sätt loket på GAMLA läget, ordna om korten i DOM (bäst först)
+    snap.forEach(s=>{
+      s.li.className="row"+(s.p.rank===1?" leader":"");
+      s.li.innerHTML=rowInnerHTML(s.p, s.idx, leaderCount, settled, fmt(isNaN(s.oldPts)?s.p.points:s.oldPts));
+      placeTrain(s.li, s.oldLeft);
+      fitName(s.li.querySelector(".name"));
+      $board.appendChild(s.li);                     // flyttar kortet → slutordningen blir ranked-ordningen
+    });
+
+    // 3) mät nya lägen, kör FLIP (kort glider) + loks-glid + sifferuppräkning
+    const afterTop=snap.map(s=>s.li.getBoundingClientRect().top);
+    if(!reducedMotion){
+      snap.forEach((s,i)=>{ s.li.style.transition="none"; s.li.style.transform="translateY("+(s.beforeTop-afterTop[i])+"px)"; });
+      void $board.offsetHeight;                     // tvinga reflow innan vi släpper transformen
+    }
+    requestAnimationFrame(()=>{
+      snap.forEach(s=>{
+        const num=s.li.querySelector(".num"), train=s.li.querySelector(".train");
+        if(!reducedMotion){
+          s.li.style.transition="transform .55s cubic-bezier(.22,1,.36,1)";
+          s.li.style.transform="";
+          if(train) train.style.transition="left 1.2s cubic-bezier(.22,1,.36,1)";
+        }
+        placeTrain(s.li, s.newLeft);                // loket glider till nytt läge (stoppbock/klipp följer med)
+        if(num){
+          if(!reducedMotion && !isNaN(s.oldPts) && Math.abs(s.oldPts-s.p.points)>1e-9) countUpFrom(num, s.oldPts, s.p.points, 900);
+          else num.textContent=fmt(s.p.points);
+        }
+      });
+    });
+  }
+
+  // Klick på pillret → hämta på nytt. Tyst vid success (den nya tiden räcker som kvitto);
+  // vid fail: amber prick, behåll senast kända tid, och en varningsrad under (klick = försök igen).
+  async function manualRefresh(){
+    if(!revealed || refreshing) return;
+    refreshing=true;
+    setBadge("loading","Uppdaterar…");
     try{
       const {players,demo,updatedAt}=await fetchData();
       lastGood=players; lastDemo=demo; lastUpdated=updatedAt;
-      render(players, false);                 // tyst uppdatering, ingen bygg-animation
-      showDataStatus(demo);
+      patch(players);
+      showDataStatus(demo);                         // tillbaka till normalläge med ny tid
     }catch(err){
-      // Bakgrundspollen failade (långsamt nät / timeout). Datan ändras 1–2 ggr/dygn, så en
-      // missad poll är ett icke-event: behåll tavlan och "Senast uppdaterad"-tiden som redan
-      // visas istället för att blinka rött. Nästa lyckade poll (om 30 s) rättar tiden själv.
       console.error(err);
+      setBadge("warn", lastUpdated ? "Ställningen uppdaterad "+fmtStamp(lastUpdated) : "Uppdatera ställningen");
+    }finally{
+      refreshing=false;
     }
   }
 
   (function(){ const y=document.getElementById("year"); if(y) y.textContent=new Date().getFullYear(); })();
   $startBtn.addEventListener("click",()=>{ if(btnMode==="ready") reveal(); else if(btnMode==="retry") prepare(); });
+  $status.addEventListener("click", manualRefresh);   // pillret är uppdatera-knappen (no-op tills tavlan visats)
   window.addEventListener("resize",()=>$board.querySelectorAll(".name").forEach(fitName));
   prepare();
   </script>
