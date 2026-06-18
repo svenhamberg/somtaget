@@ -11,7 +11,8 @@
     csvUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSjpI8qiPxM9CFpazKbHFIbjJA9S-re_PrlwMwdo7wFArAVgshedPHL63WYEY-RPd_nceB_9d-so93C/pub?gid=610468794&single=true&output=csv",            // <-- publicerad CSV-URL
     fetchTimeoutMs: 12000, // avbryt en hängande hämtning så knappen hamnar i "Försök igen" istället för att snurra för evigt
     target: 20,            // "ett tjåg"
-    updatedMarker: "LAST_UPDATED=",   // cell-prefix som Apps Script skriver i arket (LAST_UPDATED=<ISO-tid>) → "senast uppdaterad"
+    minStep: 1,            // ~minsta poäng en match ger; inom så här nära tjåget kan man inte längre finjustera sitt läge (mjuk regel)
+    updatedMarker: "LAST_UPDATED=",   // cell-prefix som Apps Script skriver i arket (LAST_UPDATED=<ISO-tid>) → tiden i statuspillret
 
     // Kolumnrubriker som INTE är spelare (gemener, delmatchning):
     metaHeaders:   ["date","datum","time","tid","home","hemma","away","borta","team","match","resultat","plats","arena","grupp","group"],
@@ -155,8 +156,8 @@
   }
 
   // Läser tidsstämpeln som ett Apps Script skriver i arket (cellen "LAST_UPDATED=<ISO-tid>").
-  // Då speglar pillret när DATAN senast ändrades – inte när sidan råkade polla den. Saknas
-  // cellen returneras null och pillret visar bara "Live" (ingen påhittad tid).
+  // Då speglar pillret när DATAN senast ändrades – inte när sidan råkade hämta den. Saknas
+  // cellen returneras null och pillret blir bara "Uppdatera ställningen" (ingen påhittad tid).
   function extractUpdatedAt(rows){
     const marker=CONFIG.updatedMarker||"LAST_UPDATED=";
     for(const row of rows) for(const cell of row){
@@ -238,12 +239,15 @@
     const sameRank=(a,b)=> Math.abs(a.score-b.score)<1e-9 && Math.abs(a.awaySpeed-b.awaySpeed)<1e-9;
     let rank=0;
     ranked.forEach((p,idx)=>{ if(idx===0 || !sameRank(p,ranked[idx-1])) rank=idx+1; p.rank=rank; });
-    // "terminal" = passerat tjåg OCH inte etta. En låst spelares score är fryst (kan inte
-    // förbättras), så har någon redan en bättre score är de matematiskt ute ur leken.
-    ranked.forEach(p=>{ p.terminal = !!p.locked && p.rank!==1; });
+    // "terminal" = kan inte längre sluta etta → utslagen. En spelares score (avstånd till tjåget)
+    // kan bara krympa, aldrig växa. Den som är INOM en rundas minsta kliv från tjåget (~1 p =
+    // CONFIG.minStep) sitter fast: nästa match skjuter garanterat förbi det egna läget, så scoren
+    // är i praktiken låst. Är man då inte etta ligger någon redan närmare → ute. (locked = har
+    // redan passerat tjåget och är låst på samma sätt.)
+    ranked.forEach(p=>{ p.terminal = (p.locked || p.score < CONFIG.minStep) && p.rank!==1; });
     const leaderCount=ranked.filter(p=>p.rank===1).length;
-    // ledaren är inte krönt förrän alla passerat 20 (ingen kan längre förbättra sig)
-    const settled=ranked.every(p=>p.locked);
+    // ledaren krönt (🏆) först när alla andra är utslagna (terminal) – inte tidigare.
+    const settled=ranked.every(p=>p.rank===1 || p.terminal);
     // tiebreak-hint: när flera spelare delar exakt samma score avgör awaySpeed ("snabbast bort
     // från tjåg"). Märk dem så korten visar exit-värdet (+x 💨🚂) – men bara när farten faktiskt
     // skiljer dem åt (annars är de genuint oavgjorda och delar redan rank).
@@ -452,7 +456,7 @@
     $statusWarn.hidden = !(mode==="warn" && revealed);   // varningsraden hör bara hemma när pillret är retry-knappen
   }
 
-  // ---------- data-status (banner + live-pill) ----------
+  // ---------- data-status (banner + statuspill) ----------
   function fmtStamp(d){
     const time=d.toLocaleTimeString("sv-SE",{hour:"2-digit",minute:"2-digit"});
     if(d.toDateString()===new Date().toDateString()) return time;                       // idag → bara klockslag
@@ -492,7 +496,7 @@
     else { $startLabel.textContent="Försök igen"; $gateHint.textContent="Kunde inte hämta ställningen."; $gateHint.style.display=""; }
   }
 
-  // ---------- förbered (hämta + förladda) → avslöja på klick → live-uppdatering ----------
+  // ---------- förbered (hämta + förladda) → avslöja på klick → manuell uppdatering via pillret ----------
   async function prepare(){
     setBtn("loading"); setBadge("loading","Laddar…");
     try{
@@ -506,7 +510,7 @@
   function reveal(){
     if(revealed) return;
     revealed=true;
-    showDataStatus(lastDemo);                    // statuspillret byter till "Live …" på plats
+    showDataStatus(lastDemo);                    // statuspillret blir uppdatera-knapp och visar "Ställningen uppdaterad …"
     const gh=$gate.offsetHeight;                 // mät gatens höjd innan den göms
     $gate.classList.add("hide");
     setTimeout(()=>{

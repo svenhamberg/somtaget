@@ -234,9 +234,9 @@
     .row.leader .pts{text-shadow:0 1px 0 rgba(255,255,255,.6);}
     .row.leader .train{filter:drop-shadow(0 0 6px rgba(244,178,42,.95));}
 
-    /* terminal – passerat tjåg OCH inte längre med i kampen (kan inte vinna).
-       Kortet bleknar och porträttet går i gråskala = ute. Rälsens stoppbock signalerar redan
-       "passerat" – det här lägger till "och därmed ur leken". */
+    /* terminal – ute ur leken: kan inte längre sluta etta (passerat tjåg, ELLER så nära 20 att
+       nästa runda garanterat skjuter över) och någon ligger redan bättre. Kortet bleknar och
+       porträttet går i gråskala = ute. Logiken sitter i rankPlayers(). */
     .row.terminal{
       background:linear-gradient(180deg,#ecebe7,#e3e1db);   /* avsvalnat grått istället för varm grädde – ur leken */
       border-color:#d8d4cb;
