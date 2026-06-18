@@ -903,8 +903,6 @@
       const buildMs=(COUNT_MS+GAP_MS)*(lastGood.length||0)+LEADER_PAUSE_MS+500;
       setTimeout(()=>{ $board.style.minHeight=""; }, reducedMotion?0:buildMs);
     }, 220);
-    setInterval(refresh, CONFIG.refreshMs);
-    document.addEventListener("visibilitychange",()=>{ if(!document.hidden) refresh(); });
   }
 
   async function refresh(){
