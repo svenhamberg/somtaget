@@ -146,7 +146,9 @@
       for(let i=1;i<moves.length;i++) if(Math.abs(CONFIG.target-moves[i]) < Math.abs(CONFIG.target-moves[ci])) ci=i;
       const bestV=moves[ci], bestD=Math.abs(CONFIG.target-bestV);
       const last=moves[moves.length-1];
-      const locked = Math.abs(CONFIG.target-last) > bestD + 1e-9;
+      // Totalen växer bara: ligger sista totalen redan över tjåget kan man aldrig komma närmare,
+      // alltså passerat – även om det läget råkar vara ens närmaste (hoppade rakt förbi 20).
+      const locked = last > CONFIG.target || Math.abs(CONFIG.target-last) > bestD + 1e-9;
       // tiebreaker "snabbast bort från tjåg": avståndsökningen i steget direkt efter
       // närmaste läget. 0 = har inte lämnat tjåget än (eller rör sig i lås med andra).
       const awaySpeed = (ci+1 < moves.length) ? (Math.abs(CONFIG.target-moves[ci+1]) - bestD) : 0;
